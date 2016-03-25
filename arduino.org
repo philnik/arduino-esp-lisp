@@ -1,0 +1,125 @@
+#+STARTUP: indent
+#+STARTUP: hidestars
+#+OPTIONS: html-link-use-abs-url:nil html-postamble:auto html-preamble:t html-scripts:t
+#+OPTIONS: html-style:t html5-fancy:nil tex:t
+#+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.4.50.1 (<a href="http://orgmode.org">Org</a> mode 8.2.6)
+#+CONSTANTS: c=299792458. pi=3.14 eps=2.4e-6
+#+HTML_CONTAINER: div
+#+HTML_DOCTYPE: xhtml-strict
+#+HTML_HEAD:
+#+HTML_HEAD_EXTRA:
+#+HTML_LINK_HOME:
+#+HTML_LINK_UP:
+#+HTML_MATHJAX:
+#+INFOJS_OPT:
+#+LATEX_HEADER:
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [a4paper]
+#+LATEX_HEADER: \usepackage[landscape]{geometry}
+#+LATEX_HEADER: \usepackage[cm-default]{fontspec}                                         
+#+LATEX_HEADER: \usepackage{xunicode}                                                     
+#+LATEX_HEADER: \usepackage{xltxtra}                                                      
+#+LATEX_HEADER: \usepackage{xgreek}
+#+LATEX_HEADER: \setmainfont[Mapping=tex-text]{Times New Roman}
+
+* arduino-emacs
+*** create a Makefile 
+Create a makefile at same directory as ino file
+
+#+NAME Makefile
+#+BEGIN_SRC Makefile
+BOARD_TAG = uno (see make show_boards)
+ARDUINO_LIBS = <space separated list of libs, arduino.mk will try to guess>
+MONITOR_PORT = /dev/ttyUSB0 (will be automatically guessed from IDE prefs)
+include /usr/share/arduino/Arduino.mk
+#+END_SRC
+
+*** compile
+compile with "make -k upload"
+
+* MPU-6050
+[[/home/bit/arduino/images/MPU6050-arduino-uno.png][MPU6050-schematic]]
+*** <2016-03-14 Δευ>
+[[/home/bit/arduino/MPU-6050/MPU-6050.cpp][MPU-6050.cpp]]
+
+
+* HMC5883L
+*** <2016-03-14 Δευ>
+[[/home/bit/arduino/GY-521/GY-521.ino][GY-521]]
+**** code
+
+
+* LCD
+[[/home/bit/arduino/images/lcd.png][LCD]]
+
+*** setcursor
+lcd.setCursor(0, 0); // top left
+lcd.setCursor(15, 0); // top right
+lcd.setCursor(0, 1); // bottom left
+lcd.setCursor(15, 1); // bottom right
+
+
+*** code
+/*
+  LiquidCrystal Library - display() and noDisplay()
+ 
+ Demonstrates the use a 16x2 LCD display.  The LiquidCrystal
+ library works with all LCD displays that are compatible with the 
+ Hitachi HD44780 driver. There are many of them out there, and you
+ can usually tell them by the 16-pin interface.
+ 
+ This sketch prints "Hello World!" to the LCD and uses the 
+ display() and noDisplay() functions to turn on and off
+ the display.
+ 
+ The circuit:
+ * LCD RS pin to digital pin 12
+ * LCD Enable pin to digital pin 11
+ * LCD D4 pin to digital pin 5
+ * LCD D5 pin to digital pin 4
+ * LCD D6 pin to digital pin 3
+ * LCD D7 pin to digital pin 2
+ * LCD R/W pin to ground
+ * 10K resistor:
+ * ends to +5V and ground
+ * wiper to LCD VO pin (pin 3)
+ 
+ Library originally added 18 Apr 2008
+ by David A. Mellis
+ library modified 5 Jul 2009
+ by Limor Fried (http://www.ladyada.net)
+ example added 9 Jul 2009
+ by Tom Igoe 
+ modified 22 Nov 2010
+ by Tom Igoe
+
+ This example code is in the public domain.
+
+ http://arduino.cc/en/Tutorial/LiquidCrystalDisplay
+
+ */
+
+// include the library code:
+#include <LiquidCrystal.h>
+
+// initialize the library with the numbers of the interface pins
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+void setup() {
+  // set up the LCD's number of columns and rows: 
+  lcd.begin(16, 2);
+  // Print a message to the LCD.
+  lcd.print("hello, world!");
+}
+
+void loop() {
+  // Turn off the display:
+  lcd.noDisplay();
+  delay(500);
+   // Turn on the display:
+  lcd.display();
+  delay(500);
+}
+
+
+* LCD-compass

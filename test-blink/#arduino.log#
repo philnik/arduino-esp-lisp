@@ -1,0 +1,542 @@
+/usr/share/arduino/hardware/tools/avr/bin/avr-g++ -c -g -Os -Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega328p -DF_CPU=16000000L -MMD -DUSB_VID=null -DUSB_PID=null -DARDUINO=105 -D__PROG_TYPES_COMPAT__ -I/usr/share/arduino/hardware/arduino/cores/arduino -I/usr/share/arduino/hardware/arduino/variants/standard /tmp/build5128865122365737024.tmp/Blink.cpp -o /tmp/build5128865122365737024.tmp/Blink.cpp.o
+					/usr/share/arduino/hardware/tools/avr/bin/avr-ar rcs /tmp/build5128865122365737024.tmp/core.a /tmp/build5128865122365737024.tmp/malloc.c.o
+					/usr/share/arduino/hardware/tools/avr/bin/avr-ar rcs /tmp/build5128865122365737024.tmp/core.a /tmp/build5128865122365737024.tmp/realloc.c.o
+					/usr/share/arduino/hardware/tools/avr/bin/avr-ar rcs /tmp/build5128865122365737024.tmp/core.a /tmp/build5128865122365737024.tmp/wiring.c.o
+					/usr/share/arduino/hardware/tools/avr/bin/avr-ar rcs /tmp/build5128865122365737024.tmp/core.a /tmp/build5128865122365737024.tmp/Print.cpp.o
+					/usr/share/arduino/hardware/tools/avr/bin/avr-ar rcs /tmp/build5128865122365737024.tmp/core.a /tmp/build5128865122365737024.tmp/WString.cpp.o
+					/usr/share/arduino/hardware/tools/avr/bin/avr-ar rcs /tmp/build5128865122365737024.tmp/core.a /tmp/build5128865122365737024.tmp/main.cpp.o
+					/usr/share/arduino/hardware/tools/avr/bin/avr-ar rcs /tmp/build5128865122365737024.tmp/core.a /tmp/build5128865122365737024.tmp/HardwareSerial.cpp.o
+					/usr/share/arduino/hardware/tools/avr/bin/avr-ar rcs /tmp/build5128865122365737024.tmp/core.a /tmp/build5128865122365737024.tmp/Stream.cpp.o
+					/usr/share/arduino/hardware/tools/avr/bin/avr-ar rcs /tmp/build5128865122365737024.tmp/core.a /tmp/build5128865122365737024.tmp/CDC.cpp.o
+					/usr/share/arduino/hardware/tools/avr/bin/avr-ar rcs /tmp/build5128865122365737024.tmp/core.a /tmp/build5128865122365737024.tmp/WMath.cpp.o
+					/usr/share/arduino/hardware/tools/avr/bin/avr-ar rcs /tmp/build5128865122365737024.tmp/core.a /tmp/build5128865122365737024.tmp/new.cpp.o
+					/usr/share/arduino/hardware/tools/avr/bin/avr-ar rcs /tmp/build5128865122365737024.tmp/core.a /tmp/build5128865122365737024.tmp/Tone.cpp.o
+					/usr/share/arduino/hardware/tools/avr/bin/avr-ar rcs /tmp/build5128865122365737024.tmp/core.a /tmp/build5128865122365737024.tmp/USBCore.cpp.o
+					/usr/share/arduino/hardware/tools/avr/bin/avr-ar rcs /tmp/build5128865122365737024.tmp/core.a /tmp/build5128865122365737024.tmp/IPAddress.cpp.o
+					/usr/share/arduino/hardware/tools/avr/bin/avr-ar rcs /tmp/build5128865122365737024.tmp/core.a /tmp/build5128865122365737024.tmp/HID.cpp.o
+					/usr/share/arduino/hardware/tools/avr/bin/avr-gcc -Os -Wl,--gc-sections -mmcu=atmega328p -o /tmp/build5128865122365737024.tmp/Blink.cpp.elf /tmp/build5128865122365737024.tmp/Blink.cpp.o /tmp/build5128865122365737024.tmp/core.a -L/tmp/build5128865122365737024.tmp -lm
+					/usr/share/arduino/hardware/tools/avr/bin/avr-objcopy -O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0 /tmp/build5128865122365737024.tmp/Blink.cpp.elf /tmp/build5128865122365737024.tmp/Blink.cpp.eep
+					/usr/share/arduino/hardware/tools/avr/bin/avr-objcopy -O ihex -R .eeprom /tmp/build5128865122365737024.tmp/Blink.cpp.elf /tmp/build5128865122365737024.tmp/Blink.cpp.hex
+					Binary sketch size: 1,056 bytes (of a 32,256 byte maximum)
+					/usr/share/arduino/hardware/tools/avrdude -C/usr/share/arduino/hardware/tools/avrdude.conf -v -v -v -v -patmega328p -carduino -P/dev/ttyACM0 -b115200 -D -Uflash:w:/tmp/build5128865122365737024.tmp/Blink.cpp.hex:i
+
+avrdude: Version 6.1, compiled on Sep  8 2015 at 09:40:37
+         Copyright (c) 2000-2005 Brian Dean, http://www.bdmicro.com/
+	          Copyright (c) 2007-2014 Joerg Wunsch
+
+         System wide configuration file is "/usr/share/arduino/hardware/tools/avrdude.conf"
+	          User configuration file is "/home/bit/.avrduderc"
+		           User configuration file does not exist or is not a regular file, skipping
+
+         Using Port                    : /dev/ttyACM0
+	          Using Programmer              : arduino
+		           Overriding Baud Rate          : 115200
+			   avrdude: Send: 0 [30]   [20]
+			   avrdude: Send: 0 [30]   [20]
+			   avrdude: Send: 0 [30]   [20]
+			   avrdude: Recv: . [14]
+			   avrdude: Recv: . [10]
+			            AVR Part                      : ATmega328P
+				             Chip Erase delay              : 9000 us
+					              PAGEL                         : PD7
+						               BS2                           : PC2
+							                RESET disposition             : dedicated
+									         RETRY pulse                   : SCK
+										          serial program mode           : yes
+											           parallel program mode         : yes
+												            Timeout                       : 200
+													             StabDelay                     : 100
+														              CmdexeDelay                   : 25
+															               SyncLoops                     : 32
+																                ByteDelay                     : 0
+																		         PollIndex                     : 3
+																			          PollValue                     : 0x53
+																				           Memory Detail                 :
+
+                                  Block Poll               Page                       Polled
+				             Memory Type Mode Delay Size  Indx Paged  Size   Size #Pages MinW  MaxW   ReadBack
+					                ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------
+							           eeprom        65    20     4    0 no       1024    4      0  3600  3600 0xff 0xff
+								                                     Block Poll               Page                       Polled
+												                Memory Type Mode Delay Size  Indx Paged  Size   Size #Pages MinW  MaxW   ReadBack
+														           ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------
+															              flash         65     6   128    0 yes     32768  128    256  4500  4500 0xff 0xff
+																                                        Block Poll               Page                       Polled
+																					           Memory Type Mode Delay Size  Indx Paged  Size   Size #Pages MinW  MaxW   ReadBack
+																						              ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------
+																							                 lfuse          0     0     0    0 no          1    0      0  4500  4500 0x00 0x00
+																									                                   Block Poll               Page                       Polled
+																													              Memory Type Mode Delay Size  Indx Paged  Size   Size #Pages MinW  MaxW   ReadBack
+																														                 ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------
+																																            hfuse          0     0     0    0 no          1    0      0  4500  4500 0x00 0x00
+																																	                                      Block Poll               Page                       Polled
+																																					                 Memory Type Mode Delay Size  Indx Paged  Size   Size #Pages MinW  MaxW   ReadBack
+																																							            ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------
+																																								               efuse          0     0     0    0 no          1    0      0  4500  4500 0x00 0x00
+																																									                                         Block Poll               Page                       Polled
+																																														            Memory Type Mode Delay Size  Indx Paged  Size   Size #Pages MinW  MaxW   ReadBack
+																																															               ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------
+																																																                  lock           0     0     0    0 no          1    0      0  4500  4500 0x00 0x00
+																																																		                                    Block Poll               Page                       Polled
+																																																						               Memory Type Mode Delay Size  Indx Paged  Size   Size #Pages MinW  MaxW   ReadBack
+																																																							                  ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------
+																																																									             calibration    0     0     0    0 no          1    0      0     0     0 0x00 0x00
+																																																										                                       Block Poll               Page                       Polled
+																																																														                  Memory Type Mode Delay Size  Indx Paged  Size   Size #Pages MinW  MaxW   ReadBack
+																																																																             ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------
+																																																																	                signature      0     0     0    0 no          3    0      0     0     0 0x00 0x00
+
+         Programmer Type : Arduino
+	          Description     : Arduino
+		  avrdude: Send: A [41] . [80]   [20]
+		  avrdude: Recv: . [14]
+		  avrdude: Recv: . [03]
+		  avrdude: Recv: . [10]
+		  avrdude: Send: A [41] . [81]   [20]
+		  avrdude: Recv: . [14]
+		  avrdude: Recv: . [04]
+		  avrdude: Recv: . [10]
+		  avrdude: Send: A [41] . [82]   [20]
+		  avrdude: Recv: . [14]
+		  avrdude: Recv: . [04]
+		  avrdude: Recv: . [10]
+		  avrdude: Send: A [41] . [98]   [20]
+		  avrdude: Recv: . [14]
+		  avrdude: Recv: . [03]
+		  avrdude: Recv: . [10]
+		           Hardware Version: 3
+			            Firmware Version: 4.4
+				    avrdude: Send: A [41] . [84]   [20]
+				    avrdude: Recv: . [14]
+				    avrdude: Recv: . [03]
+				    avrdude: Recv: . [10]
+				    avrdude: Send: A [41] . [85]   [20]
+				    avrdude: Recv: . [14]
+				    avrdude: Recv: . [03]
+				    avrdude: Recv: . [10]
+				    avrdude: Send: A [41] . [86]   [20]
+				    avrdude: Recv: . [14]
+				    avrdude: Recv: . [03]
+				    avrdude: Recv: . [10]
+				    avrdude: Send: A [41] . [87]   [20]
+				    avrdude: Recv: . [14]
+				    avrdude: Recv: . [03]
+				    avrdude: Recv: . [10]
+				    avrdude: Send: A [41] . [89]   [20]
+				    avrdude: Recv: . [14]
+				    avrdude: Recv: . [03]
+				    avrdude: Recv: . [10]
+				             Vtarget         : 0.3 V
+					              Varef           : 0.3 V
+						               Oscillator      : 28.800 kHz
+							                SCK period      : 3.3 us
+
+avrdude: Send: A [41] . [81]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [04]
+avrdude: Recv: . [10]
+avrdude: Send: A [41] . [82]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [04]
+avrdude: Recv: . [10]
+avrdude: Send: B [42] . [86] . [00] . [00] . [01] . [01] . [01] . [01] . [03] . [ff] . [ff] . [ff] . [ff] . [00] . [80] . [04] . [00] . [00] . [00] . [80] . [00]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: Send: E [45] . [05] . [04] . [d7] . [c2] . [00]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: Send: P [50]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: AVR device initialized and ready to accept instructions
+
+Reading | avrdude: Send: u [75]   [20]
+avrdude: Recv: . [14] . [1e] . [95] . [0f] . [10]
+################################################## | 100% 0.00s
+
+avrdude: Device signature = 0x1e950f
+avrdude: reading input file "/tmp/build5128865122365737024.tmp/Blink.cpp.hex"
+avrdude: writing flash (1056 bytes):
+
+Writing | avrdude: Send: U [55] . [00] . [00]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: Send: d [64] . [00] . [80] F [46] . [0c] . [94] \ [5c] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] 2 [32] . [01] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [00] . [00] . [00] . [07] . [00] . [02] . [01] . [00] . [00] . [03] . [04] . [06] . [00] . [00] . [00] . [00] . [00] . [00] . [00] . [00] . [01] . [02] . [04] . [08]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+#####avrdude: Send: U [55] @ [40] . [00]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: Send: d [64] . [00] . [80] F [46] . [10]   [20] @ [40] . [80] . [01] . [02] . [04] . [08] . [10]   [20] . [01] . [02] . [04] . [08] . [10]   [20] . [04] . [04] . [04] . [04] . [04] . [04] . [04] . [04] . [02] . [02] . [02] . [02] . [02] . [02] . [03] . [03] . [03] . [03] . [03] . [03] . [00] . [00] . [00] . [00] % [25] . [00] ( [28] . [00] + [2b] . [00] . [00] . [00] . [00] . [00] $ [24] . [00] ' [27] . [00] * [2a] . [00] . [11] $ [24] . [1f] . [be] . [cf] . [ef] . [d8] . [e0] . [de] . [bf] . [cd] . [bf] . [11] . [e0] . [a0] . [e0] . [b1] . [e0] . [ee] . [e1] . [f4] . [e0] . [02] . [c0] . [05] . [90] . [0d] . [92] . [a2] 0 [30] . [b1] . [07] . [d9] . [f7] ! [21] . [e0] . [a2] . [e0] . [b1] . [e0] . [01] . [c0] . [1d] . [92] . [ab] 0 [30] . [b2] . [07] . [e1] . [f7] . [0e] . [94] . [00] . [02] . [0c] . [94] . [0d] . [02] . [0c] . [94] . [00] . [00] a [61] . [e0] . [80] . [91] . [00] . [01] . [0c] . [94] . [c3] . [00]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+######avrdude: Send: U [55] . [80] . [00]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: Send: d [64] . [00] . [80] F [46] . [cf] . [93] . [df] . [93] . [c0] . [e0] . [d1] . [e0] a [61] . [e0] . [88] . [81] . [0e] . [94] . [fc] . [00] h [68] . [ee] s [73] . [e0] . [80] . [e0] . [90] . [e0] . [0e] . [94] . [9f] . [01] ` [60] . [e0] . [88] . [81] . [0e] . [94] . [fc] . [00] h [68] . [ee] s [73] . [e0] . [80] . [e0] . [90] . [e0] . [df] . [91] . [cf] . [91] . [0c] . [94] . [9f] . [01] . [83] 0 [30] . [81] . [f0] ( [28] . [f4] . [81] 0 [30] . [99] . [f0] . [82] 0 [30] . [a1] . [f0] . [08] . [95] . [86] 0 [30] . [a9] . [f0] . [87] 0 [30] . [b9] . [f0] . [84] 0 [30] . [d1] . [f4] . [80] . [91] . [80] . [00] . [8f] } [7d] . [03] . [c0] . [80] . [91] . [80] . [00] . [8f] w [77] . [80] . [93] . [80] . [00] . [08] . [95] . [84] . [b5] . [8f] w [77] . [02] . [c0] . [84] . [b5] . [8f] } [7d] . [84] . [bd] . [08] . [95] . [80] . [91] . [b0] . [00] . [8f] w [77] . [03] . [c0] . [80] . [91] . [b0] . [00] . [8f] } [7d]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+#####avrdude: Send: U [55] . [c0] . [00]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: Send: d [64] . [00] . [80] F [46] . [80] . [93] . [b0] . [00] . [08] . [95] . [cf] . [93] . [df] . [93] . [90] . [e0] . [fc] . [01] . [e4] X [58] . [ff] O [4f] $ [24] . [91] . [fc] . [01] . [e0] W [57] . [ff] O [4f] . [84] . [91] . [88] # [23] I [49] . [f1] . [90] . [e0] . [88] . [0f] . [99] . [1f] . [fc] . [01] . [e2] U [55] . [ff] O [4f] . [a5] . [91] . [b4] . [91] . [8c] U [55] . [9f] O [4f] . [fc] . [01] . [c5] . [91] . [d4] . [91] . [9f] . [b7] a [61] . [11] . [08] . [c0] . [f8] . [94] . [8c] . [91]   [20] . [95] . [82] # [23] . [8c] . [93] . [88] . [81] . [82] # [23] . [0a] . [c0] b [62] 0 [30] Q [51] . [f4] . [f8] . [94] . [8c] . [91] 2 [32] / [2f] 0 [30] . [95] . [83] # [23] . [8c] . [93] . [88] . [81] . [82] + [2b] . [88] . [83] . [04] . [c0] . [f8] . [94] . [8c] . [91] . [82] + [2b] . [8c] . [93] . [9f] . [bf] . [df] . [91] . [cf] . [91] . [08] . [95] . [0f] . [93] . [1f] . [93] . [cf] . [93] . [df] . [93]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+######avrdude: Send: U [55] . [00] . [01]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: Send: d [64] . [00] . [80] F [46] . [1f] . [92] . [cd] . [b7] . [de] . [b7] ( [28] / [2f] 0 [30] . [e0] . [f9] . [01] . [e8] Y [59] . [ff] O [4f] . [84] . [91] . [f9] . [01] . [e4] X [58] . [ff] O [4f] . [14] . [91] . [f9] . [01] . [e0] W [57] . [ff] O [4f] . [04] . [91] . [00] # [23] . [c9] . [f0] . [88] # [23] ! [21] . [f0] i [69] . [83] . [0e] . [94] . [9a] . [00] i [69] . [81] . [e0] / [2f] . [f0] . [e0] . [ee] . [0f] . [ff] . [1f] . [ec] U [55] . [ff] O [4f] . [a5] . [91] . [b4] . [91] . [9f] . [b7] . [f8] . [94] . [8c] . [91] a [61] . [11] . [03] . [c0] . [10] . [95] . [81] # [23] . [01] . [c0] . [81] + [2b] . [8c] . [93] . [9f] . [bf] . [0f] . [90] . [df] . [91] . [cf] . [91] . [1f] . [91] . [0f] . [91] . [08] . [95] . [1f] . [92] . [0f] . [92] . [0f] . [b6] . [0f] . [92] . [11] $ [24] / [2f] . [93] ? [3f] . [93] . [8f] . [93] . [9f] . [93] . [af] . [93] . [bf] . [93] . [80] . [91] . [03] . [01] . [90] . [91]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+#####avrdude: Send: U [55] @ [40] . [01]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: Send: d [64] . [00] . [80] F [46] . [04] . [01] . [a0] . [91] . [05] . [01] . [b0] . [91] . [06] . [01] 0 [30] . [91] . [02] . [01] # [23] . [e0] # [23] . [0f] - [2d] 7 [37]   [20] . [f4] . [01] . [96] . [a1] . [1d] . [b1] . [1d] . [05] . [c0] & [26] . [e8] # [23] . [0f] . [02] . [96] . [a1] . [1d] . [b1] . [1d]   [20] . [93] . [02] . [01] . [80] . [93] . [03] . [01] . [90] . [93] . [04] . [01] . [a0] . [93] . [05] . [01] . [b0] . [93] . [06] . [01] . [80] . [91] . [07] . [01] . [90] . [91] . [08] . [01] . [a0] . [91] . [09] . [01] . [b0] . [91] . [0a] . [01] . [01] . [96] . [a1] . [1d] . [b1] . [1d] . [80] . [93] . [07] . [01] . [90] . [93] . [08] . [01] . [a0] . [93] . [09] . [01] . [b0] . [93] . [0a] . [01] . [bf] . [91] . [af] . [91] . [9f] . [91] . [8f] . [91] ? [3f] . [91] / [2f] . [91] . [0f] . [90] . [0f] . [be] . [0f] . [90] . [1f] . [90] . [18] . [95] ? [3f] . [b7] . [f8] . [94] . [80] . [91] . [07] . [01]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+######avrdude: Send: U [55] . [80] . [01]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: Send: d [64] . [00] . [80] F [46] . [90] . [91] . [08] . [01] . [a0] . [91] . [09] . [01] . [b0] . [91] . [0a] . [01] & [26] . [b5] . [a8] . [9b] . [05] . [c0] / [2f] ? [3f] . [19] . [f0] . [01] . [96] . [a1] . [1d] . [b1] . [1d] ? [3f] . [bf] f [66] ' [27] x [78] / [2f] . [89] / [2f] . [9a] / [2f] b [62] . [0f] q [71] . [1d] . [81] . [1d] . [91] . [1d] B [42] . [e0] f [66] . [0f] w [77] . [1f] . [88] . [1f] . [99] . [1f] J [4a] . [95] . [d1] . [f7] . [08] . [95] . [cf] . [92] . [df] . [92] . [ef] . [92] . [ff] . [92] . [cf] . [93] . [df] . [93] k [6b] . [01] | [7c] . [01] . [0e] . [94] | [7c] . [01] . [eb] . [01] . [c1] . [14] . [d1] . [04] . [e1] . [04] . [f1] . [04] y [79] . [f0] . [0e] . [94] | [7c] . [01] l [6c] . [1b] } [7d] . [0b] h [68] > [3e] s [73] @ [40] . [a0] . [f3] . [81] . [e0] . [c8] . [1a] . [d1] . [08] . [e1] . [08] . [f1] . [08] . [c8] Q [51] . [dc] O [4f] . [ec] . [cf] . [df] . [91] . [cf] . [91]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+#####avrdude: Send: U [55] . [c0] . [01]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: Send: d [64] . [00] . [80] F [46] . [ff] . [90] . [ef] . [90] . [df] . [90] . [cf] . [90] . [08] . [95] x [78] . [94] . [84] . [b5] . [82] ` [60] . [84] . [bd] . [84] . [b5] . [81] ` [60] . [84] . [bd] . [85] . [b5] . [82] ` [60] . [85] . [bd] . [85] . [b5] . [81] ` [60] . [85] . [bd] . [ee] . [e6] . [f0] . [e0] . [80] . [81] . [81] ` [60] . [80] . [83] . [e1] . [e8] . [f0] . [e0] . [10] . [82] . [80] . [81] . [82] ` [60] . [80] . [83] . [80] . [81] . [81] ` [60] . [80] . [83] . [e0] . [e8] . [f0] . [e0] . [80] . [81] . [81] ` [60] . [80] . [83] . [e1] . [eb] . [f0] . [e0] . [80] . [81] . [84] ` [60] . [80] . [83] . [e0] . [eb] . [f0] . [e0] . [80] . [81] . [81] ` [60] . [80] . [83] . [ea] . [e7] . [f0] . [e0] . [80] . [81] . [84] ` [60] . [80] . [83] . [80] . [81] . [82] ` [60] . [80] . [83] . [80] . [81] . [81] ` [60] . [80] . [83] . [80] . [81] . [80] h [68] . [80] . [83] . [10] . [92] . [c1] . [00] . [08] . [95]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+######avrdude: Send: U [55] . [00] . [02]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: Send: d [64] . [00] . [80] F [46] . [0e] . [94] . [c5] . [01] . [0e] . [94] { [7b] . [00] . [c0] . [e0] . [d0] . [e0] . [0e] . [94] . [80] . [00]   [20] . [97] . [e1] . [f3] . [0e] . [94] . [00] . [00] . [f9] . [cf] . [f8] . [94] . [ff] . [cf] . [0d] . [00] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+###### | 100% 0.22s
+
+avrdude: 1056 bytes of flash written
+avrdude: verifying flash memory against /tmp/build5128865122365737024.tmp/Blink.cpp.hex:
+avrdude: load data flash data from input file /tmp/build5128865122365737024.tmp/Blink.cpp.hex:
+avrdude: input file /tmp/build5128865122365737024.tmp/Blink.cpp.hex contains 1056 bytes
+avrdude: reading on-chip flash data:
+
+Reading | avrdude: Send: U [55] . [00] . [00]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: Send: t [74] . [00] . [80] F [46]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [0c] . [94] \ [5c] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] 2 [32] . [01] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [0c] . [94] y [79] . [00] . [00] . [00] . [00] . [07] . [00] . [02] . [01] . [00] . [00] . [03] . [04] . [06] . [00] . [00] . [00] . [00] . [00] . [00] . [00] . [00] . [01] . [02] . [04] . [08]
+avrdude: Recv: . [10]
+#####avrdude: Send: U [55] @ [40] . [00]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: Send: t [74] . [00] . [80] F [46]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]   [20] @ [40] . [80] . [01] . [02] . [04] . [08] . [10]   [20] . [01] . [02] . [04] . [08] . [10]   [20] . [04] . [04] . [04] . [04] . [04] . [04] . [04] . [04] . [02] . [02] . [02] . [02] . [02] . [02] . [03] . [03] . [03] . [03] . [03] . [03] . [00] . [00] . [00] . [00] % [25] . [00] ( [28] . [00] + [2b] . [00] . [00] . [00] . [00] . [00] $ [24] . [00] ' [27] . [00] * [2a] . [00] . [11] $ [24] . [1f] . [be] . [cf] . [ef] . [d8] . [e0] . [de] . [bf] . [cd] . [bf] . [11] . [e0] . [a0] . [e0] . [b1] . [e0] . [ee] . [e1] . [f4] . [e0] . [02] . [c0] . [05] . [90] . [0d] . [92] . [a2] 0 [30] . [b1] . [07] . [d9] . [f7] ! [21] . [e0] . [a2] . [e0] . [b1] . [e0] . [01] . [c0] . [1d] . [92] . [ab] 0 [30] . [b2] . [07] . [e1] . [f7] . [0e] . [94] . [00] . [02] . [0c] . [94] . [0d] . [02] . [0c] . [94] . [00] . [00] a [61] . [e0] . [80] . [91] . [00] . [01] . [0c] . [94] . [c3] . [00]
+avrdude: Recv: . [10]
+######avrdude: Send: U [55] . [80] . [00]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: Send: t [74] . [00] . [80] F [46]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [cf] . [93] . [df] . [93] . [c0] . [e0] . [d1] . [e0] a [61] . [e0] . [88] . [81] . [0e] . [94] . [fc] . [00] h [68] . [ee] s [73] . [e0] . [80] . [e0] . [90] . [e0] . [0e] . [94] . [9f] . [01] ` [60] . [e0] . [88] . [81] . [0e] . [94] . [fc] . [00] h [68] . [ee] s [73] . [e0] . [80] . [e0] . [90] . [e0] . [df] . [91] . [cf] . [91] . [0c] . [94] . [9f] . [01] . [83] 0 [30] . [81] . [f0] ( [28] . [f4] . [81] 0 [30] . [99] . [f0] . [82] 0 [30] . [a1] . [f0] . [08] . [95] . [86] 0 [30] . [a9] . [f0] . [87] 0 [30] . [b9] . [f0] . [84] 0 [30] . [d1] . [f4] . [80] . [91] . [80] . [00] . [8f] } [7d] . [03] . [c0] . [80] . [91] . [80] . [00] . [8f] w [77] . [80] . [93] . [80] . [00] . [08] . [95] . [84] . [b5] . [8f] w [77] . [02] . [c0] . [84] . [b5] . [8f] } [7d] . [84] . [bd] . [08] . [95] . [80] . [91] . [b0] . [00] . [8f] w [77] . [03] . [c0] . [80] . [91] . [b0] . [00] . [8f] } [7d]
+avrdude: Recv: . [10]
+#####avrdude: Send: U [55] . [c0] . [00]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: Send: t [74] . [00] . [80] F [46]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [80] . [93] . [b0] . [00] . [08] . [95] . [cf] . [93] . [df] . [93] . [90] . [e0] . [fc] . [01] . [e4] X [58] . [ff] O [4f] $ [24] . [91] . [fc] . [01] . [e0] W [57] . [ff] O [4f] . [84] . [91] . [88] # [23] I [49] . [f1] . [90] . [e0] . [88] . [0f] . [99] . [1f] . [fc] . [01] . [e2] U [55] . [ff] O [4f] . [a5] . [91] . [b4] . [91] . [8c] U [55] . [9f] O [4f] . [fc] . [01] . [c5] . [91] . [d4] . [91] . [9f] . [b7] a [61] . [11] . [08] . [c0] . [f8] . [94] . [8c] . [91]   [20] . [95] . [82] # [23] . [8c] . [93] . [88] . [81] . [82] # [23] . [0a] . [c0] b [62] 0 [30] Q [51] . [f4] . [f8] . [94] . [8c] . [91] 2 [32] / [2f] 0 [30] . [95] . [83] # [23] . [8c] . [93] . [88] . [81] . [82] + [2b] . [88] . [83] . [04] . [c0] . [f8] . [94] . [8c] . [91] . [82] + [2b] . [8c] . [93] . [9f] . [bf] . [df] . [91] . [cf] . [91] . [08] . [95] . [0f] . [93] . [1f] . [93] . [cf] . [93] . [df] . [93]
+avrdude: Recv: . [10]
+######avrdude: Send: U [55] . [00] . [01]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: Send: t [74] . [00] . [80] F [46]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [1f] . [92] . [cd] . [b7] . [de] . [b7] ( [28] / [2f] 0 [30] . [e0] . [f9] . [01] . [e8] Y [59] . [ff] O [4f] . [84] . [91] . [f9] . [01] . [e4] X [58] . [ff] O [4f] . [14] . [91] . [f9] . [01] . [e0] W [57] . [ff] O [4f] . [04] . [91] . [00] # [23] . [c9] . [f0] . [88] # [23] ! [21] . [f0] i [69] . [83] . [0e] . [94] . [9a] . [00] i [69] . [81] . [e0] / [2f] . [f0] . [e0] . [ee] . [0f] . [ff] . [1f] . [ec] U [55] . [ff] O [4f] . [a5] . [91] . [b4] . [91] . [9f] . [b7] . [f8] . [94] . [8c] . [91] a [61] . [11] . [03] . [c0] . [10] . [95] . [81] # [23] . [01] . [c0] . [81] + [2b] . [8c] . [93] . [9f] . [bf] . [0f] . [90] . [df] . [91] . [cf] . [91] . [1f] . [91] . [0f] . [91] . [08] . [95] . [1f] . [92] . [0f] . [92] . [0f] . [b6] . [0f] . [92] . [11] $ [24] / [2f] . [93] ? [3f] . [93] . [8f] . [93] . [9f] . [93] . [af] . [93] . [bf] . [93] . [80] . [91] . [03] . [01] . [90] . [91]
+avrdude: Recv: . [10]
+#####avrdude: Send: U [55] @ [40] . [01]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: Send: t [74] . [00] . [80] F [46]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [04] . [01] . [a0] . [91] . [05] . [01] . [b0] . [91] . [06] . [01] 0 [30] . [91] . [02] . [01] # [23] . [e0] # [23] . [0f] - [2d] 7 [37]   [20] . [f4] . [01] . [96] . [a1] . [1d] . [b1] . [1d] . [05] . [c0] & [26] . [e8] # [23] . [0f] . [02] . [96] . [a1] . [1d] . [b1] . [1d]   [20] . [93] . [02] . [01] . [80] . [93] . [03] . [01] . [90] . [93] . [04] . [01] . [a0] . [93] . [05] . [01] . [b0] . [93] . [06] . [01] . [80] . [91] . [07] . [01] . [90] . [91] . [08] . [01] . [a0] . [91] . [09] . [01] . [b0] . [91] . [0a] . [01] . [01] . [96] . [a1] . [1d] . [b1] . [1d] . [80] . [93] . [07] . [01] . [90] . [93] . [08] . [01] . [a0] . [93] . [09] . [01] . [b0] . [93] . [0a] . [01] . [bf] . [91] . [af] . [91] . [9f] . [91] . [8f] . [91] ? [3f] . [91] / [2f] . [91] . [0f] . [90] . [0f] . [be] . [0f] . [90] . [1f] . [90] . [18] . [95] ? [3f] . [b7] . [f8] . [94] . [80] . [91] . [07] . [01]
+avrdude: Recv: . [10]
+######avrdude: Send: U [55] . [80] . [01]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: Send: t [74] . [00] . [80] F [46]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [90] . [91] . [08] . [01] . [a0] . [91] . [09] . [01] . [b0] . [91] . [0a] . [01] & [26] . [b5] . [a8] . [9b] . [05] . [c0] / [2f] ? [3f] . [19] . [f0] . [01] . [96] . [a1] . [1d] . [b1] . [1d] ? [3f] . [bf] f [66] ' [27] x [78] / [2f] . [89] / [2f] . [9a] / [2f] b [62] . [0f] q [71] . [1d] . [81] . [1d] . [91] . [1d] B [42] . [e0] f [66] . [0f] w [77] . [1f] . [88] . [1f] . [99] . [1f] J [4a] . [95] . [d1] . [f7] . [08] . [95] . [cf] . [92] . [df] . [92] . [ef] . [92] . [ff] . [92] . [cf] . [93] . [df] . [93] k [6b] . [01] | [7c] . [01] . [0e] . [94] | [7c] . [01] . [eb] . [01] . [c1] . [14] . [d1] . [04] . [e1] . [04] . [f1] . [04] y [79] . [f0] . [0e] . [94] | [7c] . [01] l [6c] . [1b] } [7d] . [0b] h [68] > [3e] s [73] @ [40] . [a0] . [f3] . [81] . [e0] . [c8] . [1a] . [d1] . [08] . [e1] . [08] . [f1] . [08] . [c8] Q [51] . [dc] O [4f] . [ec] . [cf] . [df] . [91] . [cf] . [91]
+avrdude: Recv: . [10]
+#####avrdude: Send: U [55] . [c0] . [01]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: Send: t [74] . [00] . [80] F [46]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [ff] . [90] . [ef] . [90] . [df] . [90] . [cf] . [90] . [08] . [95] x [78] . [94] . [84] . [b5] . [82] ` [60] . [84] . [bd] . [84] . [b5] . [81] ` [60] . [84] . [bd] . [85] . [b5] . [82] ` [60] . [85] . [bd] . [85] . [b5] . [81] ` [60] . [85] . [bd] . [ee] . [e6] . [f0] . [e0] . [80] . [81] . [81] ` [60] . [80] . [83] . [e1] . [e8] . [f0] . [e0] . [10] . [82] . [80] . [81] . [82] ` [60] . [80] . [83] . [80] . [81] . [81] ` [60] . [80] . [83] . [e0] . [e8] . [f0] . [e0] . [80] . [81] . [81] ` [60] . [80] . [83] . [e1] . [eb] . [f0] . [e0] . [80] . [81] . [84] ` [60] . [80] . [83] . [e0] . [eb] . [f0] . [e0] . [80] . [81] . [81] ` [60] . [80] . [83] . [ea] . [e7] . [f0] . [e0] . [80] . [81] . [84] ` [60] . [80] . [83] . [80] . [81] . [82] ` [60] . [80] . [83] . [80] . [81] . [81] ` [60] . [80] . [83] . [80] . [81] . [80] h [68] . [80] . [83] . [10] . [92] . [c1] . [00] . [08] . [95]
+avrdude: Recv: . [10]
+######avrdude: Send: U [55] . [00] . [02]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+avrdude: Send: t [74] . [00] . [80] F [46]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [0e] . [94] . [c5] . [01] . [0e] . [94] { [7b] . [00] . [c0] . [e0] . [d0] . [e0] . [0e] . [94] . [80] . [00]   [20] . [97] . [e1] . [f3] . [0e] . [94] . [00] . [00] . [f9] . [cf] . [f8] . [94] . [ff] . [cf] . [0d] . [00] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff] . [ff]
+avrdude: Recv: . [10]
+###### | 100% 0.15s
+
+avrdude: avr_read(): skipping page 9: no interesting data
+avrdude: avr_read(): skipping page 10: no interesting data
+avrdude: avr_read(): skipping page 11: no interesting data
+avrdude: avr_read(): skipping page 12: no interesting data
+avrdude: avr_read(): skipping page 13: no interesting data
+avrdude: avr_read(): skipping page 14: no interesting data
+avrdude: avr_read(): skipping page 15: no interesting data
+avrdude: avr_read(): skipping page 16: no interesting data
+avrdude: avr_read(): skipping page 17: no interesting data
+avrdude: avr_read(): skipping page 18: no interesting data
+avrdude: avr_read(): skipping page 19: no interesting data
+avrdude: avr_read(): skipping page 20: no interesting data
+avrdude: avr_read(): skipping page 21: no interesting data
+avrdude: avr_read(): skipping page 22: no interesting data
+avrdude: avr_read(): skipping page 23: no interesting data
+avrdude: avr_read(): skipping page 24: no interesting data
+avrdude: avr_read(): skipping page 25: no interesting data
+avrdude: avr_read(): skipping page 26: no interesting data
+avrdude: avr_read(): skipping page 27: no interesting data
+avrdude: avr_read(): skipping page 28: no interesting data
+avrdude: avr_read(): skipping page 29: no interesting data
+avrdude: avr_read(): skipping page 30: no interesting data
+avrdude: avr_read(): skipping page 31: no interesting data
+avrdude: avr_read(): skipping page 32: no interesting data
+avrdude: avr_read(): skipping page 33: no interesting data
+avrdude: avr_read(): skipping page 34: no interesting data
+avrdude: avr_read(): skipping page 35: no interesting data
+avrdude: avr_read(): skipping page 36: no interesting data
+avrdude: avr_read(): skipping page 37: no interesting data
+avrdude: avr_read(): skipping page 38: no interesting data
+avrdude: avr_read(): skipping page 39: no interesting data
+avrdude: avr_read(): skipping page 40: no interesting data
+avrdude: avr_read(): skipping page 41: no interesting data
+avrdude: avr_read(): skipping page 42: no interesting data
+avrdude: avr_read(): skipping page 43: no interesting data
+avrdude: avr_read(): skipping page 44: no interesting data
+avrdude: avr_read(): skipping page 45: no interesting data
+avrdude: avr_read(): skipping page 46: no interesting data
+avrdude: avr_read(): skipping page 47: no interesting data
+avrdude: avr_read(): skipping page 48: no interesting data
+avrdude: avr_read(): skipping page 49: no interesting data
+avrdude: avr_read(): skipping page 50: no interesting data
+avrdude: avr_read(): skipping page 51: no interesting data
+avrdude: avr_read(): skipping page 52: no interesting data
+avrdude: avr_read(): skipping page 53: no interesting data
+avrdude: avr_read(): skipping page 54: no interesting data
+avrdude: avr_read(): skipping page 55: no interesting data
+avrdude: avr_read(): skipping page 56: no interesting data
+avrdude: avr_read(): skipping page 57: no interesting data
+avrdude: avr_read(): skipping page 58: no interesting data
+avrdude: avr_read(): skipping page 59: no interesting data
+avrdude: avr_read(): skipping page 60: no interesting data
+avrdude: avr_read(): skipping page 61: no interesting data
+avrdude: avr_read(): skipping page 62: no interesting data
+avrdude: avr_read(): skipping page 63: no interesting data
+avrdude: avr_read(): skipping page 64: no interesting data
+avrdude: avr_read(): skipping page 65: no interesting data
+avrdude: avr_read(): skipping page 66: no interesting data
+avrdude: avr_read(): skipping page 67: no interesting data
+avrdude: avr_read(): skipping page 68: no interesting data
+avrdude: avr_read(): skipping page 69: no interesting data
+avrdude: avr_read(): skipping page 70: no interesting data
+avrdude: avr_read(): skipping page 71: no interesting data
+avrdude: avr_read(): skipping page 72: no interesting data
+avrdude: avr_read(): skipping page 73: no interesting data
+avrdude: avr_read(): skipping page 74: no interesting data
+avrdude: avr_read(): skipping page 75: no interesting data
+avrdude: avr_read(): skipping page 76: no interesting data
+avrdude: avr_read(): skipping page 77: no interesting data
+avrdude: avr_read(): skipping page 78: no interesting data
+avrdude: avr_read(): skipping page 79: no interesting data
+avrdude: avr_read(): skipping page 80: no interesting data
+avrdude: avr_read(): skipping page 81: no interesting data
+avrdude: avr_read(): skipping page 82: no interesting data
+avrdude: avr_read(): skipping page 83: no interesting data
+avrdude: avr_read(): skipping page 84: no interesting data
+avrdude: avr_read(): skipping page 85: no interesting data
+avrdude: avr_read(): skipping page 86: no interesting data
+avrdude: avr_read(): skipping page 87: no interesting data
+avrdude: avr_read(): skipping page 88: no interesting data
+avrdude: avr_read(): skipping page 89: no interesting data
+avrdude: avr_read(): skipping page 90: no interesting data
+avrdude: avr_read(): skipping page 91: no interesting data
+avrdude: avr_read(): skipping page 92: no interesting data
+avrdude: avr_read(): skipping page 93: no interesting data
+avrdude: avr_read(): skipping page 94: no interesting data
+avrdude: avr_read(): skipping page 95: no interesting data
+avrdude: avr_read(): skipping page 96: no interesting data
+avrdude: avr_read(): skipping page 97: no interesting data
+avrdude: avr_read(): skipping page 98: no interesting data
+avrdude: avr_read(): skipping page 99: no interesting data
+avrdude: avr_read(): skipping page 100: no interesting data
+avrdude: avr_read(): skipping page 101: no interesting data
+avrdude: avr_read(): skipping page 102: no interesting data
+avrdude: avr_read(): skipping page 103: no interesting data
+avrdude: avr_read(): skipping page 104: no interesting data
+avrdude: avr_read(): skipping page 105: no interesting data
+avrdude: avr_read(): skipping page 106: no interesting data
+avrdude: avr_read(): skipping page 107: no interesting data
+avrdude: avr_read(): skipping page 108: no interesting data
+avrdude: avr_read(): skipping page 109: no interesting data
+avrdude: avr_read(): skipping page 110: no interesting data
+avrdude: avr_read(): skipping page 111: no interesting data
+avrdude: avr_read(): skipping page 112: no interesting data
+avrdude: avr_read(): skipping page 113: no interesting data
+avrdude: avr_read(): skipping page 114: no interesting data
+avrdude: avr_read(): skipping page 115: no interesting data
+avrdude: avr_read(): skipping page 116: no interesting data
+avrdude: avr_read(): skipping page 117: no interesting data
+avrdude: avr_read(): skipping page 118: no interesting data
+avrdude: avr_read(): skipping page 119: no interesting data
+avrdude: avr_read(): skipping page 120: no interesting data
+avrdude: avr_read(): skipping page 121: no interesting data
+avrdude: avr_read(): skipping page 122: no interesting data
+avrdude: avr_read(): skipping page 123: no interesting data
+avrdude: avr_read(): skipping page 124: no interesting data
+avrdude: avr_read(): skipping page 125: no interesting data
+avrdude: avr_read(): skipping page 126: no interesting data
+avrdude: avr_read(): skipping page 127: no interesting data
+avrdude: avr_read(): skipping page 128: no interesting data
+avrdude: avr_read(): skipping page 129: no interesting data
+avrdude: avr_read(): skipping page 130: no interesting data
+avrdude: avr_read(): skipping page 131: no interesting data
+avrdude: avr_read(): skipping page 132: no interesting data
+avrdude: avr_read(): skipping page 133: no interesting data
+avrdude: avr_read(): skipping page 134: no interesting data
+avrdude: avr_read(): skipping page 135: no interesting data
+avrdude: avr_read(): skipping page 136: no interesting data
+avrdude: avr_read(): skipping page 137: no interesting data
+avrdude: avr_read(): skipping page 138: no interesting data
+avrdude: avr_read(): skipping page 139: no interesting data
+avrdude: avr_read(): skipping page 140: no interesting data
+avrdude: avr_read(): skipping page 141: no interesting data
+avrdude: avr_read(): skipping page 142: no interesting data
+avrdude: avr_read(): skipping page 143: no interesting data
+avrdude: avr_read(): skipping page 144: no interesting data
+avrdude: avr_read(): skipping page 145: no interesting data
+avrdude: avr_read(): skipping page 146: no interesting data
+avrdude: avr_read(): skipping page 147: no interesting data
+avrdude: avr_read(): skipping page 148: no interesting data
+avrdude: avr_read(): skipping page 149: no interesting data
+avrdude: avr_read(): skipping page 150: no interesting data
+avrdude: avr_read(): skipping page 151: no interesting data
+avrdude: avr_read(): skipping page 152: no interesting data
+avrdude: avr_read(): skipping page 153: no interesting data
+avrdude: avr_read(): skipping page 154: no interesting data
+avrdude: avr_read(): skipping page 155: no interesting data
+avrdude: avr_read(): skipping page 156: no interesting data
+avrdude: avr_read(): skipping page 157: no interesting data
+avrdude: avr_read(): skipping page 158: no interesting data
+avrdude: avr_read(): skipping page 159: no interesting data
+avrdude: avr_read(): skipping page 160: no interesting data
+avrdude: avr_read(): skipping page 161: no interesting data
+avrdude: avr_read(): skipping page 162: no interesting data
+avrdude: avr_read(): skipping page 163: no interesting data
+avrdude: avr_read(): skipping page 164: no interesting data
+avrdude: avr_read(): skipping page 165: no interesting data
+avrdude: avr_read(): skipping page 166: no interesting data
+avrdude: avr_read(): skipping page 167: no interesting data
+avrdude: avr_read(): skipping page 168: no interesting data
+avrdude: avr_read(): skipping page 169: no interesting data
+avrdude: avr_read(): skipping page 170: no interesting data
+avrdude: avr_read(): skipping page 171: no interesting data
+avrdude: avr_read(): skipping page 172: no interesting data
+avrdude: avr_read(): skipping page 173: no interesting data
+avrdude: avr_read(): skipping page 174: no interesting data
+avrdude: avr_read(): skipping page 175: no interesting data
+avrdude: avr_read(): skipping page 176: no interesting data
+avrdude: avr_read(): skipping page 177: no interesting data
+avrdude: avr_read(): skipping page 178: no interesting data
+avrdude: avr_read(): skipping page 179: no interesting data
+avrdude: avr_read(): skipping page 180: no interesting data
+avrdude: avr_read(): skipping page 181: no interesting data
+avrdude: avr_read(): skipping page 182: no interesting data
+avrdude: avr_read(): skipping page 183: no interesting data
+avrdude: avr_read(): skipping page 184: no interesting data
+avrdude: avr_read(): skipping page 185: no interesting data
+avrdude: avr_read(): skipping page 186: no interesting data
+avrdude: avr_read(): skipping page 187: no interesting data
+avrdude: avr_read(): skipping page 188: no interesting data
+avrdude: avr_read(): skipping page 189: no interesting data
+avrdude: avr_read(): skipping page 190: no interesting data
+avrdude: avr_read(): skipping page 191: no interesting data
+avrdude: avr_read(): skipping page 192: no interesting data
+avrdude: avr_read(): skipping page 193: no interesting data
+avrdude: avr_read(): skipping page 194: no interesting data
+avrdude: avr_read(): skipping page 195: no interesting data
+avrdude: avr_read(): skipping page 196: no interesting data
+avrdude: avr_read(): skipping page 197: no interesting data
+avrdude: avr_read(): skipping page 198: no interesting data
+avrdude: avr_read(): skipping page 199: no interesting data
+avrdude: avr_read(): skipping page 200: no interesting data
+avrdude: avr_read(): skipping page 201: no interesting data
+avrdude: avr_read(): skipping page 202: no interesting data
+avrdude: avr_read(): skipping page 203: no interesting data
+avrdude: avr_read(): skipping page 204: no interesting data
+avrdude: avr_read(): skipping page 205: no interesting data
+avrdude: avr_read(): skipping page 206: no interesting data
+avrdude: avr_read(): skipping page 207: no interesting data
+avrdude: avr_read(): skipping page 208: no interesting data
+avrdude: avr_read(): skipping page 209: no interesting data
+avrdude: avr_read(): skipping page 210: no interesting data
+avrdude: avr_read(): skipping page 211: no interesting data
+avrdude: avr_read(): skipping page 212: no interesting data
+avrdude: avr_read(): skipping page 213: no interesting data
+avrdude: avr_read(): skipping page 214: no interesting data
+avrdude: avr_read(): skipping page 215: no interesting data
+avrdude: avr_read(): skipping page 216: no interesting data
+avrdude: avr_read(): skipping page 217: no interesting data
+avrdude: avr_read(): skipping page 218: no interesting data
+avrdude: avr_read(): skipping page 219: no interesting data
+avrdude: avr_read(): skipping page 220: no interesting data
+avrdude: avr_read(): skipping page 221: no interesting data
+avrdude: avr_read(): skipping page 222: no interesting data
+avrdude: avr_read(): skipping page 223: no interesting data
+avrdude: avr_read(): skipping page 224: no interesting data
+avrdude: avr_read(): skipping page 225: no interesting data
+avrdude: avr_read(): skipping page 226: no interesting data
+avrdude: avr_read(): skipping page 227: no interesting data
+avrdude: avr_read(): skipping page 228: no interesting data
+avrdude: avr_read(): skipping page 229: no interesting data
+avrdude: avr_read(): skipping page 230: no interesting data
+avrdude: avr_read(): skipping page 231: no interesting data
+avrdude: avr_read(): skipping page 232: no interesting data
+avrdude: avr_read(): skipping page 233: no interesting data
+avrdude: avr_read(): skipping page 234: no interesting data
+avrdude: avr_read(): skipping page 235: no interesting data
+avrdude: avr_read(): skipping page 236: no interesting data
+avrdude: avr_read(): skipping page 237: no interesting data
+avrdude: avr_read(): skipping page 238: no interesting data
+avrdude: avr_read(): skipping page 239: no interesting data
+avrdude: avr_read(): skipping page 240: no interesting data
+avrdude: avr_read(): skipping page 241: no interesting data
+avrdude: avr_read(): skipping page 242: no interesting data
+avrdude: avr_read(): skipping page 243: no interesting data
+avrdude: avr_read(): skipping page 244: no interesting data
+avrdude: avr_read(): skipping page 245: no interesting data
+avrdude: avr_read(): skipping page 246: no interesting data
+avrdude: avr_read(): skipping page 247: no interesting data
+avrdude: avr_read(): skipping page 248: no interesting data
+avrdude: avr_read(): skipping page 249: no interesting data
+avrdude: avr_read(): skipping page 250: no interesting data
+avrdude: avr_read(): skipping page 251: no interesting data
+avrdude: avr_read(): skipping page 252: no interesting data
+avrdude: avr_read(): skipping page 253: no interesting data
+avrdude: avr_read(): skipping page 254: no interesting data
+avrdude: avr_read(): skipping page 255: no interesting data
+avrdude: verifying ...
+avrdude: 1056 bytes of flash verified
+avrdude: Send: Q [51]   [20]
+avrdude: Recv: . [14]
+avrdude: Recv: . [10]
+
+avrdude done.  Thank you.
+
