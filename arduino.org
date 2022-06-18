@@ -22,6 +22,82 @@
 #+LATEX_HEADER: \usepackage{xgreek}
 #+LATEX_HEADER: \setmainfont[Mapping=tex-text]{Times New Roman}
 
+* run arduino from gcc
+
+
+AVR code is:
+
+#+name: blink_led
+#+header: :exports code
+#+header: :results file
+#+header: :file /home/me/arduino/blink_led/blink_led.c
+#+begin_src org
+#include <avr/io.h>
+#include <util/delay.h>
+
+#define MS_DELAY 100
+
+int main (void) {
+    /*Set to one the fifth bit of DDRB to one
+    **Set digital pin 13 to output mode */
+    DDRB |= _BV(DDB5);
+
+    while(1) {
+        /*Set to one the fifth bit of PORTB to one
+        **Set to HIGH the pin 13 */
+        PORTB |= _BV(PORTB5);
+
+        /*Wait 3000 ms */
+        _delay_ms(MS_DELAY);
+
+        /*Set to zero the fifth bit of PORTB
+        **Set to LOW the pin 13 */
+        PORTB &= ~_BV(PORTB5);
+
+        /*Wait 3000 ms */
+        _delay_ms(MS_DELAY);
+    }
+}
+#+end_src 
+
+#+RESULTS: blink_led
+[[file:/home/me/arduino/blink_led/blink_led.c]]
+
+Compile and execute
+
+#+begin_src shell
+cd /home/me/arduino/blink_led
+avr-gcc -Os -DF_CPU=16000000UL -mmcu=atmega328p -c -o blink_led.o blink_led.c
+#+end_src
+
+#+RESULTS:
+
+#+begin_src shell
+cd /home/me/arduino/blink_led
+avr-gcc -mmcu=atmega328p blink_led.o -o blink_led
+#+end_src
+
+#+RESULTS:
+
+#+begin_src shell
+cd /home/me/arduino/blink_led
+avr-objcopy -O ihex -R .eeprom blink_led blink_led.hex
+#+end_src
+
+#+RESULTS:
+
+#+begin_src shell
+cd /home/me/arduino/blink_led
+avrdude -F -V -c arduino -p ATMEGA328P -P /dev/ttyACM0 -b 115200 -U flash:w:blink_led.hex
+#+end_src
+
+#+RESULTS:
+
+
+
+
+
+
 * arduino-emacs
 *** create a Makefile 
 Create a makefile at same directory as ino file
