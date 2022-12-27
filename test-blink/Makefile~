@@ -1,4 +1,0 @@
-BOARD_TAG = uno (see make show_boards)
-ARDUINO_LIBS = 
-MONITOR_PORT = /dev/ttyACM0 (will be automatically guessed from IDE prefs)
-include /usr/share/arduino/Arduino.mk

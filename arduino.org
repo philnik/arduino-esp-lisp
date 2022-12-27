@@ -5,7 +5,129 @@
 (defun cub (x) (* x x x))
 #+end_src
 
+* GPS
+  (with-serial (str 3 96)(loop(print (read-line str))))
 
+#+begin_src c :tangle function_names.c
+	{ bmpt, (fn_ptr_type)fn_isbmpconnected, 0x00, doc_isbmpconnected },
+	{ printbmp, (fn_ptr_type)fn_printbmptoserial, 0x00, doc_printbmptoserial },
+	
+	{ readcompass, (fn_ptr_type)fn_readcompass, 0x00, doc_readcompass },
+	{ initcompass, (fn_ptr_type)fn_initcompass, 0x00, doc_initcompass },
+
+	{ beginserial2, (fn_ptr_type)fn_beginserial2, 0x00, doc_beginserial2 },
+	{ printserial2, (fn_ptr_type)fn_printserial2, 0x00, doc_printserial2 },
+#+end_src
+  
+#+begin_src c :tangle function_doc.c
+const char doc_beginserial2[] PROGMEM = "(beginserial2)\n"
+"begins serial2 at pins 16,17 ";
+const char doc_printserial2[] PROGMEM = "(printserial2)\n"
+"prints serial2 to serial";
+#+end_src
+
+
+#+begin_src c :tangle functions_PROGMEM.c
+const char bmpt[] PROGMEM = "isbmpconnected";
+const char printbmp[] PROGMEM = "printbmptoserial";
+
+const char readcompass[] PROGMEM = "readcompass";
+const char initcompass[] PROGMEM = "initcompass";
+
+const char beginserial2[] PROGMEM = "beginserial2";
+const char printserial2[] PROGMEM = "printserial2";
+
+#+end_src
+
+#+begin_src c :tangle functions.c
+object *fn_beginserial2 (object *args, object *env) {
+  Serial2.begin(9600, SERIAL_8N1, RXD2, TXD2);
+  return nil;
+}
+
+object *fn_printserial2 (object *args, object *env) {
+  while (Serial2.available()) {
+    Serial.print(char(Serial2.read()));
+  }
+  return nil;
+}
+
+#+end_src
+
+
+#+begin_src c
+#define RXD2 16
+#define TXD2 17
+
+void setup() {
+  // Note the format for setting a serial port is as follows: Serial2.begin(baud-rate, protocol, RX pin, TX pin);
+  Serial.begin(115200);
+  //Serial1.begin(9600, SERIAL_8N1, RXD2, TXD2);
+  Serial2.begin(9600, SERIAL_8N1, RXD2, TXD2);
+  Serial.println("Serial Txd is on pin: "+String(TX));
+  Serial.println("Serial Rxd is on pin: "+String(RX));
+}
+
+void loop() { //Choose Serial1 or Serial2 as required
+  while (Serial2.available()) {
+    Serial.print(char(Serial2.read()));
+  }
+}
+
+#+end_src
+
+* DS3221
+
+#+name: DS3231
+#+begin_src lisp :tangle yes
+
+(defun ds3231-set (hr min)
+  (with-i2c (str #x68)
+    (write-byte 0 str)
+    (write-byte 0 str)
+    (write-byte min str)
+    (write-byte hr str)))
+
+(defun ds3231-time ()
+  (with-i2c (str #x68)
+    (write-byte 0 str)
+    (restart-i2c str 3)
+    (list
+     (read-byte str)
+     (read-byte str)
+     (read-byte str))))
+
+(defun ds3231_printtime ()
+  (with-i2c (str #x68)
+    (write-byte 0 str)
+    (restart-i2c str 3)
+    (let ((time (list (read-byte str) (read-byte str) (read-byte str))))
+      (format t "~2x:~2x:~2x" (nth 2 time) (nth 1 time) (nth 0 time)))))
+
+(defun ds3231_printregisterb (addr)
+  (with-i2c (str #x68)
+	    (write-byte addr str)
+	    (restart-i2c str 1)
+	    (format t "~b~%" (read-byte str))))
+
+
+(defun ds3231_printregisterh (addr)
+  (with-i2c (str #x68)
+	    (write-byte addr str)
+	    (restart-i2c str 1)
+	    (format t "~x~%" (read-byte str))))
+
+(defun ds3231_printregisterd (addr)
+  (with-i2c (str #x68)
+	    (write-byte addr str)
+	    (restart-i2c str 1)
+	    (format t "~d~%" (read-byte str))))
+
+#+end_src
+
+#b00011001 01
+
+#b10100
 
 * SD card
 | updated | esp32  | - | 17.11.2022 |
@@ -41,8 +163,7 @@ https://github.com/kurimawxx00/esp32-magnetometer-hmc5883l.git
 * Compass
 
   (dotimes (p 20)
-  (readcompass)
-  )
+  (readcompass))
 
 
 * MPU-6050
@@ -62,53 +183,79 @@ https://github.com/kurimawxx00/esp32-magnetometer-hmc5883l.git
 
 #+name: MPU_6050
 #+begin_src lisp :tangle yes
-(defun reset_MPU6050 ()
-  (with-i2c (str 104) 
-    (write-byte 104 str)
-    (write-byte 0 str)
-    ))
 
-(defun MPU6050_set_scale_8g ()
-  (with-i2c (str 104) 
-    (write-byte 28 str)
-    (write-byte 16 str)
+(defun reset_MPU6050 ()
+  (with-i2c (str #x69) 
+    (write-byte #x6B str)
+    (write-byte #x0 str)))
+
+(defun MPU6050_readscale ()
+  (with-i2c (str #x69) 
+	    (write-byte #x1C str)
+	    (restart-i2c str 1) 
+	    (read-byte str)))
+
+(defun MPU6050_readtemp ()
+  "it is ok if temperature>36.5"
+  (defvar tempout1 0)
+  (defvar tempout2 0)
+  (with-i2c (str #x69) 
+	    (write-byte #x41 str)
+	    (restart-i2c str 1) 
+	    (setf tempout1 (read-byte str))
+	    (write-byte #x42 str)
+	    (restart-i2c str 1) 
+	    (setf tempout2 (read-byte str))
+	    )
+  (format t "~x,~x~%" tempout1 tempout2))
+
+
+(defun ct (tempout1 tempout2)
+  (let ((temp 0))
+    (if (= 1 (ash tempout1 -7))
+	(setf temp (+ (/ tempout2 340.0) (* (- tempout1 256) (/ 256 340.0)) 36.53))
+        (setf temp (+ (/ (logior (ash tempout1 8) tempout2) 340.0 ) 36.53) ))
+    (format t "MPU_temp:~d~%" temp)
     ))
+      
+	
+(defun checktemp (i j)
+  (dotimes (p i) (delay j)
+	   (MPU6050_readtemp)
+	   (ct tempout1 tempout2)
+	   (printbmptoserial)))
+
+(defun MPU6050_setscale8g ()
+  (with-i2c (str #x69) 
+    (write-byte #x1C str)
+    (write-byte #x10 str)))
+
+(defun MPU6050_setscale2g ()
+  (with-i2c (str #x69) 
+    (write-byte #x1C str)
+    (write-byte #x00 str)))
 
 (defun read_MPU6050 ()
-  (with-i2c (str 104) 
-    (write-byte 59 str)
+  (with-i2c (str #x69) 
+    (write-byte #x3B str)
     (restart-i2c str 6) 
-    (list
-     (read-byte str)
-     (read-byte str)
-     (read-byte str)
-     (read-byte str)
-     (read-byte str)
-     (read-byte str)))
-  )
+    (list (read-byte str) (read-byte str) (read-byte str) (read-byte str) (read-byte str) (read-byte str))))
 
-(defun scan_MPU6050_long () 
-  (dotimes (p 20)
-    (with-i2c (str 104) 
-      (write-byte 59 str)
+(defun scan_MPU6050_long (i k) 
+  (dotimes (p i)
+    (delay k)
+    (with-i2c (str #x69) 
+      (write-byte #x3B str)
       )
     (let* ((r (read_MPU6050))
-	   (x0 (nth 0 r))
-	   (y0 (nth 2 r))
-	   (z0 (nth 4 r))
-	   )
-    (format t "X:~d  Y:~d  Z:~d~%" x0 y0 z0)
-    )
-))
+	   (x0 (nth 0 r))(x1 (nth 1 r))
+	   (y0 (nth 2 r))(y1 (nth 3 r))
+	   (z0 (nth 4 r))(z1 (nth 5 r)))
+      (format t "~3d:: X:~3d:~3d  Y:~3d:~3d  Z:~3d:~3d~%" p x0 x1 y0 y1 z0 z1))))
 
-(defun scan_MPU6050 () 
-    (format nil "~{ ~d ~}" (read_MPU6050))
-)
+(defun scan_MPU6050 () (format nil "~{ ~d ~}" (read_MPU6050)))
 
   #+end_src
-
-
-
 
 * GY-271
 
@@ -130,7 +277,6 @@ https://github.com/kurimawxx00/esp32-magnetometer-hmc5883l.git
 (write-byte 9 str)
 (write-byte 29 str)
 )
-
 
 (with-i2c (str 13) 
 (write-byte 0 str)
@@ -293,17 +439,26 @@ const char LispLibrary[] PROGMEM =
 
 
 ** enums
+
+#+begin_src c :tangle functions_enums.c
 ISBMPCONNECTED, PRINTBMPTOSERIAL,
 READCOMPASS, INITCOMPASS,
+BEGINSERIAL2,PRINTSERIAL2
+#+end_src
 
 ** headers
 #+begin_src c
 #define addr 0x0D //I2C Address for The HMC5883
+#define sdcardsupport
+#define lisplibrary
+#define RXD2 16
+#define TXD2 17
 #+end_src
 
 
-** functions
-#+begin_src c
+* C-FUNCTIONS
+#+name: c_functions_1
+#+begin_src c :tangle functions.c
 object *fn_initcompass (object *args, object *env) {
 	int addr = 0x0D;
 	//  Serial.begin(9600);
@@ -320,8 +475,8 @@ object *fn_initcompass (object *args, object *env) {
 }
 #+end_src
 
-#+begin_src c
-
+#+name: c_functions_2
+#+begin_src c :tangle functions.c
 object *fn_readcompass (object *args, object *env) {
 	//	Serial.begin(9600);
 	int addr = 0x0D;
@@ -353,7 +508,8 @@ object *fn_readcompass (object *args, object *env) {
 }
 #+end_src
 
-#+begin_src c
+#+name: c_functions_3
+#+begin_src c :tangle functions.c
 object *fn_isbmpconnected (object *args, object *env) {
   //check if bmp exists
   if (!bmp.begin()) {
@@ -381,9 +537,7 @@ object *fn_printbmptoserial (object *args, object *env) {
     Serial.print(bmp.readSealevelPressure());
     Serial.println(" Pa");
 }
-
-
-
+#+end_src
 
 * full code
 // Includes
@@ -403,7 +557,6 @@ const char initcompass[] PROGMEM = "initcompass";
 { readcompass, (fn_ptr_type)fn_readcompass, 0x00, doc_readcompass },
 { initcompass, (fn_ptr_type)fn_initcompass, 0x00, doc_initcompass },
 
-  
 // Insert your own function documentation here
 const char doc_readcompass[] PROGMEM = "(readcompass)\n"
 "reads compass values and return them to serial";
@@ -421,7 +574,6 @@ const char doc_initcompass[] PROGMEM = "(initcompass)\n"
 #include <SD.h>
 
 File myFile;
-
 
 Adafruit_BMP085 bmp;
 
@@ -499,10 +651,6 @@ void loop() {
 
 #+end_src
 
-
-
-
-
 #+begin_src c
 #include <Adafruit_BMP085.h>
 #include <SPI.h>
@@ -522,7 +670,6 @@ void setup() {
   float bmpRealaltitude =  bmp.readAltitude(101500);
 
 }
-
 
 void printbmptoserial () {
     Serial.print("Temperature = ");
@@ -558,9 +705,6 @@ void loop() {
 
 
 #+end_src
-
-
-
 
 
 #+begin_src c
@@ -629,12 +773,7 @@ void loop() {
     Serial.println();
     delay(500);
 }
-
-
 #+end_src
-
-
-
 
 #+begin_src c
 /*
@@ -714,5 +853,39 @@ void setup() {
 void loop() {
   // nothing happens after setup
 }
-
 #+end_src
+
+* code runs by table variables
+
+#+tblname: s_9000_0
+|    |      |
+|----+------|
+| S1 | 10.0 |
+| S2 | 30.0 |
+| S3 | 40.0 |
+
+#+name: s_9000_2
+#+begin_src lisp :var inp = s_9000_0 
+
+(setf w
+(loop for i in inp
+      collect (let ((var (intern (car i)))
+		    (val (cadr i)))
+		(list 'setq var val))))
+
+(loop for i in w
+      collect (eval i))
+
+(list (list "S1" " " s1)
+      (list "S2" " " s2)
+      (list "S3" " " s3)
+      (list "S4" "(setq s4 (+ s1 s2)) " (setq s4 (+ s3 s2))))
+#+end_src
+
+#+RESULTS: s_9000_2
+| S1 |                     | 10.0 |
+| S2 |                     | 30.0 |
+| S3 |                     | 40.0 |
+| S4 | (setq s4 (+ s1 s2)) | 70.0 |
+
+

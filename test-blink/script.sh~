@@ -1,1 +1,0 @@
-avr-gcc -mmcu=atmega328p Os ledblink.c o ledblink.o
