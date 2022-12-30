@@ -34,9 +34,8 @@ def quote_lisp_library_text(mystring):
 |   |
 
 * File list
-
 #+tblname: file_list
-|                      |                     | status |                           |
+| id                   | filename            | status |                           |
 |----------------------+---------------------+--------+---------------------------|
 | driver               | arduino.org         | S      |                           |
 | python_functions     | arduino.py          | STA    |                           |
@@ -52,13 +51,21 @@ def quote_lisp_library_text(mystring):
 #+name: h2
 #+begin_src python :session Python :var inp=file_list :results table :hlines no
 from string import Template
+import os
 exec(open("./arduino.py").read())
-
+os.system('touch ulisp.ino')#+fnames['output'])
 fnames = dict_from_columns(0,1,inp)
 fstatus = dict_from_columns(0,2,inp)
 
 fstrings = {}
-for i in list(fnames.keys()): fstrings[i] = read_file_to_string(fnames[i])
+
+for i in list(fnames.keys()):fstrings[i] = read_file_to_string(fnames[i])
+# for i in list(fnames.keys()):
+#     try:
+#         if (fstatus[i]=='T'):
+#             fstrings[i] = read_file_to_string(fnames[i])
+#     except:
+#         print(i)
 
 template_string = Template(fstrings['template'])
 unquoted_lisp_code = fstrings['lisp_functions']
@@ -68,13 +75,16 @@ template_string2 = Template(template_string1)
 template_string3 = template_string2.safe_substitute(function_definitions=fstrings['function_definitions'])
 template_string4 = Template(template_string3)
 template_string5 = template_string4.safe_substitute(function_enums=fstrings['function_enums'])
+template_string6 = Template(template_string5)
+template_string7 = template_string6.safe_substitute(function_doc=fstrings['function_doc'])
 
-write_string_to_file('test.out',template_string5)
-
+#os.system('touch ulisp.ino')#+fnames['output'])
+write_string_to_file(fnames['output'],template_string7)
+os.system('mv '+fnames['output']+ " " + "./ulisp/"+fnames['output'])
 #+end_src
 
 #+RESULTS: h2
-| None |
+| 0 |
 
 #+RESULTS: process_files
 : None
@@ -87,9 +97,8 @@ write_string_to_file('test.out',template_string5)
 
 #+end_src
 
+
 #+RESULTS: process_lisp
-
-
 
 ** read file in lisp
 #+begin_src lisp
@@ -99,7 +108,7 @@ write_string_to_file('test.out',template_string5)
       (let ((string (make-string (file-length instream))))
         (read-sequence string instream)
         string))))
-
+ema
 (setq funcs (read-file "functions.c"))
 (format t "~a" funcs)
 
@@ -241,10 +250,6 @@ void loop() { //Choose Serial1 or Serial2 as required
 	    (format t "~d~%" (read-byte str))))
 
 #+end_src
-
-#b00011001 01
-
-#b10100
 
 * SD card
 | updated | esp32  | - | 17.11.2022 |
@@ -397,6 +402,7 @@ https://github.com/kurimawxx00/esp32-magnetometer-hmc5883l.git
 (write-byte 0 str)
 )
 
+
 #+begin_src lisp
 (defvar i 100)
 (defun mag (i)
@@ -426,8 +432,6 @@ https://github.com/kurimawxx00/esp32-magnetometer-hmc5883l.git
 
 #+RESULTS: get_magneto
 : get_magneto
-
-
 
 #+begin_src emacs-lisp :var i=get_magneto
 (format t i)
@@ -558,6 +562,7 @@ BEGINSERIAL2,PRINTSERIAL2,
 #+end_src
 
 ** headers
+Add following code to template:
 #+begin_src c
 #define addr 0x0D //I2C Address for The HMC5883
 #define sdcardsupport
