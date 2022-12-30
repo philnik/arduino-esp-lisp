@@ -90,15 +90,6 @@ os.system('mv '+fnames['output']+ " " + "./ulisp/"+fnames['output'])
 : None
 
 
-*** process lisp functions for c output
-#+name: process_lisp
-#+begin_src python :session Python :var inp=file_list :results output
-#print(mystring)
-
-#+end_src
-
-
-#+RESULTS: process_lisp
 
 ** read file in lisp
 #+begin_src lisp
