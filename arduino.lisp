@@ -77,7 +77,6 @@
 	    )
   (format t "~x,~x~%" tempout1 tempout2))
 
-
 (defun ct (tempout1 tempout2)
   (let ((temp 0))
     (if (= 1 (ash tempout1 -7))
@@ -85,7 +84,6 @@
         (setf temp (+ (/ (logior (ash tempout1 8) tempout2) 340.0 ) 36.53) ))
     (format t "MPU_temp:~d~%" temp)
     ))
-      
 	
 (defun checktemp (i j)
   (dotimes (p i) (delay j)

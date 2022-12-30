@@ -1,3 +1,114 @@
+
+* Python function definitions
+#+name: python_function_defintions
+#+begin_src python :session Python :results table :hlines no :tangle yes
+def read_file_to_string(fname):    
+    with open(fname, "r") as file1:
+        read_content = file1.read()
+    return read_content
+
+def write_string_to_file(fname,string):    
+    with open(fname, "w") as file1:
+        file1.write(string)
+
+def dict_from_columns(ind1,ind2,table):
+    fnames = {}
+    for i in table:
+        var=i[ind1]
+        value=i[ind2]
+        fnames[var]=value
+    return fnames
+
+def quote_lisp_library_text(mystring):
+    lines = mystring.splitlines()
+    fline2 = ""
+    for line in lines:
+        if line=="": continue
+        fline1 = line.replace('"','\\"')
+        fline = '\"' + fline1 + '\"'
+        fline2 = fline2 + fline + "\n"
+    return fline2[0:-1] + ";\n"
+#+end_src
+
+#+RESULTS: python_function_defintions
+|   |
+
+* File list
+
+#+tblname: file_list
+|                      |                     | status |                           |
+|----------------------+---------------------+--------+---------------------------|
+| driver               | arduino.org         | S      |                           |
+| python_functions     | arduino.py          | STA    |                           |
+| lisp_functions       | arduino.lisp        | T0     | inside string ends with ; |
+| function_enums       | functions_enums.c   | T      | ends with,                |
+| function_definitions | functions.c         | T      | function definitions      |
+| function_names       | function_names.c    | T      | ends with a coma          |
+| function_PROGMEM     | functions_PROGMEM.c | T      |                           |
+| function_doc         | function_doc.c      | T      |                           |
+| template             | ulisp.tmpl          | I      |                           |
+| output               | ulisp.ino           | O      |                           |
+
+#+name: h2
+#+begin_src python :session Python :var inp=file_list :results table :hlines no
+from string import Template
+exec(open("./arduino.py").read())
+
+fnames = dict_from_columns(0,1,inp)
+fstatus = dict_from_columns(0,2,inp)
+
+fstrings = {}
+for i in list(fnames.keys()): fstrings[i] = read_file_to_string(fnames[i])
+
+template_string = Template(fstrings['template'])
+unquoted_lisp_code = fstrings['lisp_functions']
+quoted_lisp_code = quote_lisp_library_text(unquoted_lisp_code)
+template_string1 = template_string.safe_substitute(lisp_functions=quoted_lisp_code)
+template_string2 = Template(template_string1)
+template_string3 = template_string2.safe_substitute(function_definitions=fstrings['function_definitions'])
+template_string4 = Template(template_string3)
+template_string5 = template_string4.safe_substitute(function_enums=fstrings['function_enums'])
+
+write_string_to_file('test.out',template_string5)
+
+#+end_src
+
+#+RESULTS: h2
+| None |
+
+#+RESULTS: process_files
+: None
+
+
+*** process lisp functions for c output
+#+name: process_lisp
+#+begin_src python :session Python :var inp=file_list :results output
+#print(mystring)
+
+#+end_src
+
+#+RESULTS: process_lisp
+
+
+
+** read file in lisp
+#+begin_src lisp
+(defun read-file (infile)
+  (with-open-file (instream infile :direction :input :if-does-not-exist nil)
+    (when instream 
+      (let ((string (make-string (file-length instream))))
+        (read-sequence string instream)
+        string))))
+
+(setq funcs (read-file "functions.c"))
+(format t "~a" funcs)
+
+#+end_src
+
+
+
+
+
 * Help functions
 
 #+begin_src lisp :tangle yes
@@ -11,15 +122,21 @@
 #+begin_src c :tangle function_names.c
 	{ bmpt, (fn_ptr_type)fn_isbmpconnected, 0x00, doc_isbmpconnected },
 	{ printbmp, (fn_ptr_type)fn_printbmptoserial, 0x00, doc_printbmptoserial },
-	
 	{ readcompass, (fn_ptr_type)fn_readcompass, 0x00, doc_readcompass },
 	{ initcompass, (fn_ptr_type)fn_initcompass, 0x00, doc_initcompass },
-
 	{ beginserial2, (fn_ptr_type)fn_beginserial2, 0x00, doc_beginserial2 },
 	{ printserial2, (fn_ptr_type)fn_printserial2, 0x00, doc_printserial2 },
 #+end_src
   
 #+begin_src c :tangle function_doc.c
+const char doc_isbmpconnected[] PROGMEM = "(isbmpconnected)\n"
+"Checks is BMP device is connected and begins bmp.";
+const char doc_printbmptoserial[] PROGMEM = "(printbmptoserial)\n"
+"Prints bmp data to serial port";
+const char doc_readcompass[] PROGMEM = "(readcompass)\n"
+"reads compass values and return them to serial";
+const char doc_initcompass[] PROGMEM = "(initcompass)\n"
+"initialize compass";
 const char doc_beginserial2[] PROGMEM = "(beginserial2)\n"
 "begins serial2 at pins 16,17 ";
 const char doc_printserial2[] PROGMEM = "(printserial2)\n"
@@ -209,7 +326,6 @@ https://github.com/kurimawxx00/esp32-magnetometer-hmc5883l.git
 	    )
   (format t "~x,~x~%" tempout1 tempout2))
 
-
 (defun ct (tempout1 tempout2)
   (let ((temp 0))
     (if (= 1 (ash tempout1 -7))
@@ -217,7 +333,6 @@ https://github.com/kurimawxx00/esp32-magnetometer-hmc5883l.git
         (setf temp (+ (/ (logior (ash tempout1 8) tempout2) 340.0 ) 36.53) ))
     (format t "MPU_temp:~d~%" temp)
     ))
-      
 	
 (defun checktemp (i j)
   (dotimes (p i) (delay j)
@@ -435,15 +550,11 @@ const char LispLibrary[] PROGMEM =
 (list-library)
 #+end_src
 
-
-
-
 ** enums
-
 #+begin_src c :tangle functions_enums.c
 ISBMPCONNECTED, PRINTBMPTOSERIAL,
 READCOMPASS, INITCOMPASS,
-BEGINSERIAL2,PRINTSERIAL2
+BEGINSERIAL2,PRINTSERIAL2,
 #+end_src
 
 ** headers
@@ -454,7 +565,6 @@ BEGINSERIAL2,PRINTSERIAL2
 #define RXD2 16
 #define TXD2 17
 #+end_src
-
 
 * C-FUNCTIONS
 #+name: c_functions_1
@@ -606,7 +716,6 @@ void setup() {
   }
 }
 
-
 void printbmptoserial () {
     Serial.print("Temperature = ");
     Serial.print(bmp.readTemperature());
@@ -646,7 +755,6 @@ void loop() {
     // close the file:
     myFile.close();
   }
-  
 }
 
 #+end_src
@@ -668,7 +776,6 @@ void setup() {
   float bmpAltitude = bmp.readAltitude();
   float bmpSealevelPressure = bmp.readSealevelPressure();
   float bmpRealaltitude =  bmp.readAltitude(101500);
-
 }
 
 void printbmptoserial () {
@@ -697,13 +804,8 @@ void loop() {
   bmpAltitude = bmp.readAltitude();
   bmpSealevelPressure = bmp.readSealevelPressure();
   bmpRealaltitude = bmp.readAltitude(101500);
-
   printbmptoserial();
-
-  
 }
-
-
 #+end_src
 
 
