@@ -1,4 +1,22 @@
 
+* emacs-lisp functions
+
+#+name: send_region_to_term
+#+begin_src emacs-lisp
+(defun my-send (beg end)
+  (interactive "r")
+  (process-send-region "/dev/ttyUSB0" beg end))
+(global-set-key (kbd "M-p") 'my-send)
+#+end_src
+
+#+RESULTS: send_region_to_term
+: my-send
+
+* serial port setup
+
+| Current baud rate | 115200 |
+|                   |        |
+
 * Python function definitions
 #+name: python_function_defintions
 #+begin_src python :session Python :results table :hlines no :tangle yes
@@ -124,14 +142,14 @@ quoted_lisp_code = quote_lisp_library_text(unquoted_lisp_code)
 fstrings['lisp_functions'] = quoted_lisp_code
 
 template_string7 = template_string.format(**fstrings)
-#os.system('touch ulisp.ino')#+fnames['output'])
-#write_string_to_file(fnames['output'],template_string7)
-#os.system('mv '+fnames['output']+ " " + "./ulisp/"+fnames['output'])
+os.system('touch ulisp.ino')#+fnames['output'])
+write_string_to_file(fnames['output'],template_string7)
+os.system('mv '+fnames['output']+ " " + "./ulisp/"+fnames['output'])
 
 #+end_src
 
 #+RESULTS: format_template
-|   |
+| 0 |
 
 ** read file in lisp
 #+begin_src lisp
@@ -159,8 +177,50 @@ ema
 #+end_src
 
 * GPS
-  (with-serial (str 3 96)(loop(print (read-line str))))
 
+#+begin_src lisp :tangle lisp_examples.lisp
+  (with-serial (str 3 96)(loop(print (read-line str))))
+(+ 1 1)
+#+end_src
+
+** example ino code for connecting to gps
+#+begin_src c :tangle examples/gps/gps.ino
+#include <SoftwareSerial.h>
+
+// Choose two Arduino pins to use for software serial
+int RXPin = 16;
+int TXPin = 17;
+
+//Default baud of NEO-6M is 9600
+int GPSBaud = 9600;
+
+// Create a software serial port called "gpsSerial"
+SoftwareSerial gpsSerial(RXPin, TXPin);
+
+void setup()
+{
+  // Start the Arduino hardware serial port at 9600 baud
+  Serial.begin(115200);
+
+  // Start the software serial port at the GPS's default baud
+  gpsSerial.begin(GPSBaud);
+}
+
+void loop()
+{
+  // Displays information when new sentence is available.
+  while (gpsSerial.available() > 0)
+    Serial.write(gpsSerial.read());
+}
+#+end_src
+
+
+
+
+  
+
+* function names
+  
 #+begin_src c :tangle function_names.c
 	{ bmpt, (fn_ptr_type)fn_isbmpconnected, 0x00, doc_isbmpconnected },
 	{ printbmp, (fn_ptr_type)fn_printbmptoserial, 0x00, doc_printbmptoserial },
