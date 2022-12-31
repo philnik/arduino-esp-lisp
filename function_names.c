@@ -4,3 +4,4 @@
 	{ initcompass, (fn_ptr_type)fn_initcompass, 0x00, doc_initcompass },
 	{ beginserial2, (fn_ptr_type)fn_beginserial2, 0x00, doc_beginserial2 },
 	{ printserial2, (fn_ptr_type)fn_printserial2, 0x00, doc_printserial2 },
+//	{ initgps, (fn_ptr_type)fn_initgps, 0x00, doc_initgps },

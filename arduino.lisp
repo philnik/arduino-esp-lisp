@@ -132,3 +132,17 @@
 	     (read-byte str)
 	     (read-byte str)
 	     (read-byte str))))
+
+(defun scan ()
+  (progn
+    (format t "---~%")
+    (dotimes (p 127)
+      (with-i2c (str p)
+	(when str (progn
+		    (format t "~d  - ~0x ~%" p p)
+		    (delay 100))
+    ))
+  (delay 10)
+  )
+  (format t "---~%")
+  ))
