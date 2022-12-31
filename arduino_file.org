@@ -12,7 +12,6 @@
 | function_doc         | function_doc.c      | T      |                           |
 | template             | ulisp.tmpl          | I      |                           |
 | output               | ulisp.ino           | O      |                           |
-| headers              | ulisp/ulisp.h       | H      |                           |
 
 ** Use format for template
 #+name: format_template
