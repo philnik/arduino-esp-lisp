@@ -1,0 +1,157 @@
+
+
+
+
+
+* compile-file
+
+#+name: compile_file
+#+begin_src sh  :async
+cd ~/arduino/
+arduino-cli compile --fqbn esp32:esp32:esp32 ulisp
+#+end_src
+
+#+RESULTS: compile_file
+|                        |               |                                                                                   |                 |
+|                        |               |                                                                                   |                 |
+| [92mUsed             | platform[0m | [92mVersion[0m                                                                | [90mPath[0m |
+| [93mesp32:esp32[0m |         2.0.6 | [90m/media/sdb1/opt/arduino/.arduino15/packages/esp32/hardware/esp32/2.0.6[0m |                 |
+|                        |               |                                                                                   |                 |
+
+* upload file
+
+#+name: upload_file
+#+begin_src sh :session shell :async :results raw
+arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32:esp32 ulisp
+#+end_src
+
+
+#+name: test_session
+#+begin_src sh  :session shell :async :results raw
+ls
+#+end_src
+
+
+* install packages
+
+** search for bmp
+#+name: bmp_search
+#+begin_src shell :results raw
+#arduino-cli lib search BMP085
+"Adafruit BMP085 Library"
+#+end_src
+
+#+RESULTS: bmp_search
+Name: "Adafruit BMP085 Library"
+  Author: Adafruit
+  Maintainer: Adafruit <info@adafruit.com>
+  Sentence: A powerful but easy to use BMP085/BMP180 Library
+  Paragraph: A powerful but easy to use BMP085/BMP180 Library
+  Website: https://github.com/adafruit/Adafruit-BMP085-Library
+  Category: Sensors
+  Architecture: *
+  Types: Recommended
+  Versions: [1.0.0, 1.0.1, 1.1.0, 1.2.0, 1.2.1, 1.2.2]
+  Dependencies: Adafruit Unified Sensor, Adafruit BusIO
+Name: "Adafruit BMP085 Unified"
+  Author: Adafruit
+  Maintainer: Adafruit <info@adafruit.com>
+  Sentence: Unified sensor driver for Adafruit's BMP085 & BMP180 breakouts
+  Paragraph: Unified sensor driver for Adafruit's BMP085 & BMP180 breakouts
+  Website: https://github.com/adafruit/Adafruit_BMP085_Unified
+  Category: Sensors
+  Architecture: *
+  Types: Recommended
+  Versions: [1.0.0, 1.0.1, 1.1.0, 1.1.1]
+  Dependencies: Adafruit Unified Sensor
+Name: "BMP180MI"
+  Author: Gregor Christandl <christandlg@yahoo.com>
+  Maintainer: Gregor Christandl <christandlg@yahoo.com>
+  Sentence: A library for the Bosch Sensortec BMP085 / BMP180 Digital Pressure Sensors.
+  Paragraph: The library supports I2C (via the Wire Library) interfaces. Use of other I2C libraries (e.g. software I2C) is supported by inheritance. Does not block or delay (except for convenience functions) making it better suited for applications where non-blocking behaviour is preferred.
+  Website: https://bitbucket.org/christandlg/bmp180mi
+  Category: Sensors
+  Architecture: *
+  Types: Contributed
+  Versions: [0.1.0, 0.2.0, 1.0.1]
+Name: "Grove Barometer Sensor"
+  Author: Seeed Studio
+  Maintainer: Seeed Studio <techsupport@seeed.cc>
+  Sentence: Arduino library to control Grove Barometer Sensor BMP085/BMP180.
+  Paragraph: Arduino library to control Grove Barometer Sensor BMP085/BMP180.
+  Website: https://github.com/Seeed-Studio/Grove_Barometer_Sensor
+  Category: Sensors
+  Architecture: *
+  Types: Contributed
+  Versions: [1.0.0, 2.1.0]
+  Provides includes: BMP085.h
+Name: "Sodaq_BMP085"
+  Author: keestux,SODAQ
+  Maintainer: Kees Bakker <kees@m2m4all.com>
+  Sentence: An Arduino library for the BMP085/BMP180 Barometric Pressure + Temp sensor
+  Paragraph: 
+  Website: https://github.com/SodaqMoja/Sodaq_BMP085
+  Category: Sensors
+  Architecture: *
+  Types: Contributed
+  Versions: [1.2.0, 1.2.1, 1.3.0, 1.4.0]
+
+
+
+** download library
+#+name: bmp_download
+#+begin_src shell :results raw
+#arduino-cli lib search BMP085
+arduino-cli lib install "Adafruit BMP085 Library"
+#+end_src
+
+#+RESULTS: bmp_download
+Downloading Adafruit BMP085 Library@1.2.2...
+Adafruit BMP085 Library@1.2.2 0 B / 7.08 KiB    0.00%Adafruit BMP085 Library@1.2.2 downloaded
+Installing Adafruit BMP085 Library@1.2.2...
+Installed Adafruit BMP085 Library@1.2.2
+Downloading Adafruit BusIO@1.14.1...
+Adafruit BusIO@1.14.1 0 B / 23.96 KiB    0.00%Adafruit BusIO@1.14.1 16.00 KiB / 23.96 KiB   66.79%Adafruit BusIO@1.14.1 16.00 KiB / 23.96 KiB   66.79%Adafruit BusIO@1.14.1 16.00 KiB / 23.96 KiB   66.79%Adafruit BusIO@1.14.1 downloaded
+Installing Adafruit BusIO@1.14.1...
+Installed Adafruit BusIO@1.14.1
+Downloading Adafruit Unified Sensor@1.1.7...
+Adafruit Unified Sensor@1.1.7 0 B / 14.24 KiB    0.00%Adafruit Unified Sensor@1.1.7 downloaded
+Installing Adafruit Unified Sensor@1.1.7...
+Installed Adafruit Unified Sensor@1.1.7
+
+
+  
+* arduino-cli
+
+** tutorial
+https://arduino.github.io/arduino-cli/0.29/getting-started/
+
+** core package
+https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json
+
+** run code
+
+#+name: init-config
+#+begin_src shell :results raw
+#arduino-cli config init --overwrite
+#arduino-cli config dump --verbose
+#arduino-cli config init --additional-urls https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json 
+#arduino-cli core update-index
+#arduino-cli board list
+#arduino-cli core install esp32:esp32
+#arduino-cli core list
+#arduino-cli compile --fqbn esp32:esp32:esp32 blink
+arduino-cli lib search SoftwareSerial
+arduino-cli lib install EspSoftwareSerial
+arduino-cli compile --fqbn esp32:esp32:esp32 gps
+arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32:esp32 gps
+#+end_src
+
+
+
+** yaml file
+Auto created config outputs yaml file with tabs. Tabs are not accepted in yaml.
+[[/home/me/arduino/arduino-cli.yaml]]
+
+
