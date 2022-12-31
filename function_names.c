@@ -1,0 +1,6 @@
+	{ bmpt, (fn_ptr_type)fn_isbmpconnected, 0x00, doc_isbmpconnected },
+	{ printbmp, (fn_ptr_type)fn_printbmptoserial, 0x00, doc_printbmptoserial },
+	{ readcompass, (fn_ptr_type)fn_readcompass, 0x00, doc_readcompass },
+	{ initcompass, (fn_ptr_type)fn_initcompass, 0x00, doc_initcompass },
+	{ beginserial2, (fn_ptr_type)fn_beginserial2, 0x00, doc_beginserial2 },
+	{ printserial2, (fn_ptr_type)fn_printserial2, 0x00, doc_printserial2 },
