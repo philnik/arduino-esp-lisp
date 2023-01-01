@@ -1,6 +1,7 @@
-
-
-
+#+TITLE:arduino-cli 
+#+AUTHOR: Your Name
+#+email: your-email@server.com
+#+INFOJS_OPT: 
 
 
 * compile-file
@@ -19,12 +20,10 @@ arduino-cli compile --fqbn esp32:esp32:esp32 ulisp
 |                        |               |                                                                                   |                 |
 
 * upload file
-
 #+name: upload_file
 #+begin_src sh :session shell :async :results raw
 arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32:esp32 ulisp
 #+end_src
-
 
 #+name: test_session
 #+begin_src sh  :session shell :async :results raw
@@ -153,5 +152,7 @@ arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32:esp32 gps
 ** yaml file
 Auto created config outputs yaml file with tabs. Tabs are not accepted in yaml.
 [[/home/me/arduino/arduino-cli.yaml]]
+
+
 
 
