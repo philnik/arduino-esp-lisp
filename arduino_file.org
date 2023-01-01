@@ -15,7 +15,7 @@
 
 ** Use format for template
 #+name: format_template
-#+begin_src python :session Python :var inp=file_list :results table :hlines no
+#+begin_src python :session Python :var inp=file_list :results table :hlines no :tangle build.py
 from string import Template
 import os
 exec(open("./arduino.py").read())
@@ -50,7 +50,7 @@ os.system('mv '+fnames['output']+ " " + "./ulisp/"+fnames['output'])
       (let ((string (make-string (file-length instream))))
         (read-sequence string instream)
         string))))
-ema
+
 (setq funcs (read-file "functions.c"))
 (format t "~a" funcs)
 
