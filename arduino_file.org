@@ -19,7 +19,7 @@
 from string import Template
 import os
 exec(open("./arduino.py").read())
-os.system('touch ulisp.ino')#+fnames['output'])
+os.system('touch ulisp.ino')
 fnames = dict_from_columns(0,1,inp)
 fstatus = dict_from_columns(0,2,inp)
 
@@ -33,7 +33,7 @@ quoted_lisp_code = quote_lisp_library_text(unquoted_lisp_code)
 fstrings['lisp_functions'] = quoted_lisp_code
 
 template_string7 = template_string.format(**fstrings)
-os.system('touch ulisp.ino')#+fnames['output'])
+os.system('touch ulisp.ino')
 write_string_to_file(fnames['output'],template_string7)
 os.system('mv '+fnames['output']+ " " + "./ulisp/"+fnames['output'])
 

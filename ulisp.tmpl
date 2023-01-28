@@ -4,25 +4,20 @@
    Licensed under the MIT license: https://opensource.org/licenses/MIT
 */
 
-
 #include <SoftwareSerial.h>
+#include <Adafruit_BMP085.h>
 
-#define addr 0x0D; //I2C Address for The HMC5883
+
+//#define addr 0x0D 
 #define sdcardsupport
 #define lisplibrary
 #define RXD2 16
 #define TXD2 17
 
 int GPSBaud = 9600;
-
+Adafruit_BMP085 bmp;
 SoftwareSerial gpsSerial(RXD2, TXD2);
 
-const char LispLibrary[] PROGMEM =
-{lisp_functions}
-
-// enum function {{ ISBMPCONNECTED, PRINTBMPTOSERIAL }};
-
-// Compile options
 
 // #define resetautorun
 #define printfreespace
@@ -33,9 +28,6 @@ const char LispLibrary[] PROGMEM =
 // #define lineeditor
 // #define vt100
 
-// Includes
-#include <Adafruit_BMP085.h>
-Adafruit_BMP085 bmp;
 
 // #include "LispLibrary.h"
 #include <setjmp.h>
@@ -158,6 +150,12 @@ Adafruit_SSD1306 tft(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire);
 #error "Board not supported!"
 #endif
 
+
+const char LispLibrary[] PROGMEM =
+{lisp_functions}
+
+
+  
 // enum functions
 
 

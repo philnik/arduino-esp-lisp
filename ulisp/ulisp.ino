@@ -4,142 +4,20 @@
    Licensed under the MIT license: https://opensource.org/licenses/MIT
 */
 
+#include <SoftwareSerial.h>
+#include <Adafruit_BMP085.h>
 
-//
-//
 
-//#define addr 0x0D; //I2C Address for The HMC5883
+//#define addr 0x0D 
 #define sdcardsupport
 #define lisplibrary
 #define RXD2 16
 #define TXD2 17
 
-// Lisp Library
-//const char LispLibrary[] PROGMEM = "";
+int GPSBaud = 9600;
+Adafruit_BMP085 bmp;
+SoftwareSerial gpsSerial(RXD2, TXD2);
 
-
-const char LispLibrary[] PROGMEM =
-"(defun sq (x) (* x x))"
-"(defun cub (x) (* x x x))"
-"(defun ds3231-set (hr min)"
-"  (with-i2c (str #x68)"
-"    (write-byte 0 str)"
-"    (write-byte 0 str)"
-"    (write-byte min str)"
-"    (write-byte hr str)))"
-"(defun ds3231-time ()"
-"  (with-i2c (str #x68)"
-"    (write-byte 0 str)"
-"    (restart-i2c str 3)"
-"    (list"
-"     (read-byte str)"
-"     (read-byte str)"
-"     (read-byte str))))"
-"(defun ds3231_printtime ()"
-"  (with-i2c (str #x68)"
-"    (write-byte 0 str)"
-"    (restart-i2c str 3)"
-"    (let ((time (list (read-byte str) (read-byte str) (read-byte str))))"
-"      (format t \"~2x:~2x:~2x\" (nth 2 time) (nth 1 time) (nth 0 time)))))"
-"(defun ds3231_printregisterb (addr)"
-"  (with-i2c (str #x68)"
-"	    (write-byte addr str)"
-"	    (restart-i2c str 1)"
-"	    (format t \"~b~%\" (read-byte str))))"
-"(defun ds3231_printregisterh (addr)"
-"  (with-i2c (str #x68)"
-"	    (write-byte addr str)"
-"	    (restart-i2c str 1)"
-"	    (format t \"~x~%\" (read-byte str))))"
-"(defun ds3231_printregisterd (addr)"
-"  (with-i2c (str #x68)"
-"	    (write-byte addr str)"
-"	    (restart-i2c str 1)"
-"	    (format t \"~d~%\" (read-byte str))))"
-"(defun test_sdcard ()"
-"  (print \"Write program\")"
-"  (with-sd-card (s \"lisp.txt\" 2)"
-"    (write-string \"(defun sq (x) (* x x))\" s))"
-"  (print \"Load program\")"
-"  (with-sd-card (s \"lisp.txt\")"
-"    (eval (read s)))"
-"  (print (sq 123)))"
-"(defun reset_MPU6050 ()"
-"  (with-i2c (str #x69) "
-"    (write-byte #x6B str)"
-"    (write-byte #x0 str)))"
-"(defun MPU6050_readscale ()"
-"  (with-i2c (str #x69) "
-"	    (write-byte #x1C str)"
-"	    (restart-i2c str 1) "
-"	    (read-byte str)))"
-"(defun MPU6050_readtemp ()"
-"  \"it is ok if temperature>36.5\""
-"  (defvar tempout1 0)"
-"  (defvar tempout2 0)"
-"  (with-i2c (str #x69) "
-"	    (write-byte #x41 str)"
-"	    (restart-i2c str 1) "
-"	    (setf tempout1 (read-byte str))"
-"	    (write-byte #x42 str)"
-"	    (restart-i2c str 1) "
-"	    (setf tempout2 (read-byte str))"
-"	    )"
-"  (format t \"~x,~x~%\" tempout1 tempout2))"
-"(defun ct (tempout1 tempout2)"
-"  (let ((temp 0))"
-"    (if (= 1 (ash tempout1 -7))"
-"	(setf temp (+ (/ tempout2 340.0) (* (- tempout1 256) (/ 256 340.0)) 36.53))"
-"        (setf temp (+ (/ (logior (ash tempout1 8) tempout2) 340.0 ) 36.53) ))"
-"    (format t \"MPU_temp:~d~%\" temp)"
-"    ))"
-"	"
-"(defun checktemp (i j)"
-"  (dotimes (p i) (delay j)"
-"	   (MPU6050_readtemp)"
-"	   (ct tempout1 tempout2)"
-"	   (printbmptoserial)))"
-"(defun MPU6050_setscale8g ()"
-"  (with-i2c (str #x69) "
-"    (write-byte #x1C str)"
-"    (write-byte #x10 str)))"
-"(defun MPU6050_setscale2g ()"
-"  (with-i2c (str #x69) "
-"    (write-byte #x1C str)"
-"    (write-byte #x00 str)))"
-"(defun read_MPU6050 ()"
-"  (with-i2c (str #x69) "
-"    (write-byte #x3B str)"
-"    (restart-i2c str 6) "
-"    (list (read-byte str) (read-byte str) (read-byte str) (read-byte str) (read-byte str) (read-byte str))))"
-"(defun scan_MPU6050_long (i k) "
-"  (dotimes (p i)"
-"    (delay k)"
-"    (with-i2c (str #x69) "
-"      (write-byte #x3B str)"
-"      )"
-"    (let* ((r (read_MPU6050))"
-"	   (x0 (nth 0 r))(x1 (nth 1 r))"
-"	   (y0 (nth 2 r))(y1 (nth 3 r))"
-"	   (z0 (nth 4 r))(z1 (nth 5 r)))"
-"      (format t \"~3d:: X:~3d:~3d  Y:~3d:~3d  Z:~3d:~3d~%\" p x0 x1 y0 y1 z0 z1))))"
-"(defun scan_MPU6050 () (format nil \"~{ ~d ~}\" (read_MPU6050)))"
-"(defun get_magneto ()"
-"  (with-i2c (str 13) "
-"	    (write-byte 0 str)"
-"	    (restart-i2c str 6)"
-"	    (list"
-"	     (read-byte str)"
-"	     (read-byte str)"
-"	     (read-byte str)"
-"	     (read-byte str)"
-"	     (read-byte str)"
-"	     (read-byte str))))";
-
-
-// enum function { ISBMPCONNECTED, PRINTBMPTOSERIAL };
-
-// Compile options
 
 // #define resetautorun
 #define printfreespace
@@ -150,9 +28,6 @@ const char LispLibrary[] PROGMEM =
 // #define lineeditor
 // #define vt100
 
-// Includes
-#include <Adafruit_BMP085.h>
-Adafruit_BMP085 bmp;
 
 // #include "LispLibrary.h"
 #include <setjmp.h>
@@ -275,6 +150,141 @@ Adafruit_SSD1306 tft(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire);
 #error "Board not supported!"
 #endif
 
+
+const char LispLibrary[] PROGMEM =
+"(defun sq (x) (* x x))"
+"(defun cub (x) (* x x x))"
+"(defun ds3231-set (hr min)"
+"  (with-i2c (str #x68)"
+"    (write-byte 0 str)"
+"    (write-byte 0 str)"
+"    (write-byte min str)"
+"    (write-byte hr str)))"
+"(defun ds3231-time ()"
+"  (with-i2c (str #x68)"
+"    (write-byte 0 str)"
+"    (restart-i2c str 3)"
+"    (list"
+"     (read-byte str)"
+"     (read-byte str)"
+"     (read-byte str))))"
+"(defun ds3231_printtime ()"
+"  (with-i2c (str #x68)"
+"    (write-byte 0 str)"
+"    (restart-i2c str 3)"
+"    (let ((time (list (read-byte str) (read-byte str) (read-byte str))))"
+"      (format t \"~2x:~2x:~2x\" (nth 2 time) (nth 1 time) (nth 0 time)))))"
+"(defun ds3231_printregisterb (addr)"
+"  (with-i2c (str #x68)"
+"	    (write-byte addr str)"
+"	    (restart-i2c str 1)"
+"	    (format t \"~b~%\" (read-byte str))))"
+"(defun ds3231_printregisterh (addr)"
+"  (with-i2c (str #x68)"
+"	    (write-byte addr str)"
+"	    (restart-i2c str 1)"
+"	    (format t \"~x~%\" (read-byte str))))"
+"(defun ds3231_printregisterd (addr)"
+"  (with-i2c (str #x68)"
+"	    (write-byte addr str)"
+"	    (restart-i2c str 1)"
+"	    (format t \"~d~%\" (read-byte str))))"
+"(defun test_sdcard ()"
+"  (print \"Write program\")"
+"  (with-sd-card (s \"lisp.txt\" 2)"
+"    (write-string \"(defun sq (x) (* x x))\" s))"
+"  (print \"Load program\")"
+"  (with-sd-card (s \"lisp.txt\")"
+"    (eval (read s)))"
+"  (print (sq 123)))"
+"(defun reset_MPU6050 ()"
+"  (with-i2c (str #x69) "
+"    (write-byte #x6B str)"
+"    (write-byte #x0 str)))"
+"(defun MPU6050_readscale ()"
+"  (with-i2c (str #x69) "
+"	    (write-byte #x1C str)"
+"	    (restart-i2c str 1) "
+"	    (read-byte str)))"
+"(defun MPU6050_readtemp ()"
+"  \"it is ok if temperature>36.5\""
+"  (defvar tempout1 0)"
+"  (defvar tempout2 0)"
+"  (with-i2c (str #x69) "
+"	    (write-byte #x41 str)"
+"	    (restart-i2c str 1) "
+"	    (setf tempout1 (read-byte str))"
+"	    (write-byte #x42 str)"
+"	    (restart-i2c str 1) "
+"	    (setf tempout2 (read-byte str))"
+"	    )"
+"  (format t \"~x,~x~%\" tempout1 tempout2))"
+"(defun ct (tempout1 tempout2)"
+"  (let ((temp 0))"
+"    (if (= 1 (ash tempout1 -7))"
+"	(setf temp (+ (/ tempout2 340.0) (* (- tempout1 256) (/ 256 340.0)) 36.53))"
+"        (setf temp (+ (/ (logior (ash tempout1 8) tempout2) 340.0 ) 36.53) ))"
+"    (format t \"MPU_temp:~d~%\" temp)"
+"    ))"
+"	"
+"(defun checktemp (i j)"
+"  (dotimes (p i) (delay j)"
+"	   (MPU6050_readtemp)"
+"	   (ct tempout1 tempout2)"
+"	   (printbmptoserial)))"
+"(defun MPU6050_setscale8g ()"
+"  (with-i2c (str #x69) "
+"    (write-byte #x1C str)"
+"    (write-byte #x10 str)))"
+"(defun MPU6050_setscale2g ()"
+"  (with-i2c (str #x69) "
+"    (write-byte #x1C str)"
+"    (write-byte #x00 str)))"
+"(defun read_MPU6050 ()"
+"  (with-i2c (str #x69) "
+"    (write-byte #x3B str)"
+"    (restart-i2c str 6) "
+"    (list (read-byte str) (read-byte str) (read-byte str) (read-byte str) (read-byte str) (read-byte str))))"
+"(defun scan_MPU6050_long (i k) "
+"  (dotimes (p i)"
+"    (delay k)"
+"    (with-i2c (str #x69) "
+"      (write-byte #x3B str)"
+"      )"
+"    (let* ((r (read_MPU6050))"
+"	   (x0 (nth 0 r))(x1 (nth 1 r))"
+"	   (y0 (nth 2 r))(y1 (nth 3 r))"
+"	   (z0 (nth 4 r))(z1 (nth 5 r)))"
+"      (format t \"~3d:: X:~3d:~3d  Y:~3d:~3d  Z:~3d:~3d~%\" p x0 x1 y0 y1 z0 z1))))"
+"(defun scan_MPU6050 () (format nil \"~{ ~d ~}\" (read_MPU6050)))"
+"(defun get_magneto ()"
+"  (with-i2c (str 13) "
+"	    (write-byte 0 str)"
+"	    (restart-i2c str 6)"
+"	    (list"
+"	     (read-byte str)"
+"	     (read-byte str)"
+"	     (read-byte str)"
+"	     (read-byte str)"
+"	     (read-byte str)"
+"	     (read-byte str))))"
+"(defun scan ()"
+"  (progn"
+"    (format t \"---~%\")"
+"    (dotimes (p 127)"
+"      (with-i2c (str p)"
+"	(when str (progn"
+"		    (format t \"~d  - ~0x ~%\" p p)"
+"		    (delay 100))"
+"    ))"
+"  (delay 10)"
+"  )"
+"  (format t \"---~%\")"
+"  ))";
+
+
+
+  
 // enum functions
 
 
@@ -5487,6 +5497,7 @@ const tbl_entry_t lookup_table[] PROGMEM = {
 	{ initcompass, (fn_ptr_type)fn_initcompass, 0x00, doc_initcompass },
 	{ beginserial2, (fn_ptr_type)fn_beginserial2, 0x00, doc_beginserial2 },
 	{ printserial2, (fn_ptr_type)fn_printserial2, 0x00, doc_printserial2 },
+//	{ initgps, (fn_ptr_type)fn_initgps, 0x00, doc_initgps },
 
 
 	

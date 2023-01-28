@@ -1,4 +1,9 @@
-def read_file_to_string(fname):    
+def read_file_to_string(fname):
+    """
+    Reads file to a string
+    :param fname: string
+    :returns: string
+    """
     with open(fname, "r") as file1:
         read_content = file1.read()
     return read_content
